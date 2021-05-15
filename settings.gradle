@@ -1,0 +1,5 @@
+include 'com.github.captfredricks.plentifulitems'
+include 'init'
+include 'src:init'
+findProject(':src:init')?.name = 'init'
+

@@ -1,0 +1,12 @@
+{
+    "block.plentifulitems.halite": "Halite",
+    "item.plentifulitems.banana": "Banana",
+    "item.plentifulitems.butter": "Butter",
+    "item.plentifulitems.cheese": "Cheese",
+    "item.plentifulitems.coconut": "Coconut",
+    "item.plentifulitems.coconut_cream_pie": "Coconut Cream Pie",
+    "item.plentifulitems.mango": "Mango",
+    "item.plentifulitems.salt": "Salt",
+    "itemGroup.pi_blocks": "Plentiful Blocks",
+    "itemGroup.pi_items": "Plentiful Items"
+}
