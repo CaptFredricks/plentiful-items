@@ -27,7 +27,7 @@ public final class ModEventSubscriber {
                 .map(RegistryObject::get)
                 .forEach(block -> {
                     // Set the block's properties
-                    final Item.Properties properties = new Item.Properties().tab(ModItemGroups.PI_BLOCKS);
+                    final Item.Properties properties = new Item.Properties().group(ModItemGroups.PI_BLOCKS);
                     // Create the new BlockItem with the block
                     final BlockItem blockItem = new BlockItem(block, properties);
                     // Set the new BlockItem's registry name to the block's registry name

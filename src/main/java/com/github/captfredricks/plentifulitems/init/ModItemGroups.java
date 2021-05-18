@@ -2,12 +2,14 @@ package com.github.captfredricks.plentifulitems.init;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Mod;
+
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public final class ModItemGroups {
-    public static final ItemGroup PI_BLOCKS = new ModItemGroup("pi_blocks", () -> new ItemStack(ModBlocks.HALITE.get()));
-    public static final ItemGroup PI_ITEMS = new ModItemGroup("pi_items", () -> new ItemStack(ModItems.SALT.get()));
+    public static final ItemGroup PI_BLOCKS = new ModItemGroup("pi_blocks", () -> new ItemStack(ModBlocks.GROUP_ICON.get()));
+    public static final ItemGroup PI_ITEMS = new ModItemGroup("pi_items", () -> new ItemStack(ModItems.GROUP_ICON.get()));
 
     public static final class ModItemGroup extends ItemGroup {
         @Nonnull
@@ -20,7 +22,7 @@ public final class ModItemGroups {
 
         @Override
         @Nonnull
-        public ItemStack makeIcon() {
+        public ItemStack createIcon() {
             return iconSupplier.get();
         }
     }
