@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 80,
+          "name": "plentifulitems:shrimp"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
+          "name": "plentifulitems:crab"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "plentifulitems:lobster"
+        }
+      ]
+    }
+  ]
+}

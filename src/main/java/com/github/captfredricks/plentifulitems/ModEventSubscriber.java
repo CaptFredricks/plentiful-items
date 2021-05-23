@@ -1,10 +1,14 @@
 package com.github.captfredricks.plentifulitems;
 
 import com.github.captfredricks.plentifulitems.init.ModBlocks;
+import com.github.captfredricks.plentifulitems.init.ModFishingLoot;
 import com.github.captfredricks.plentifulitems.init.ModItemGroups;
+//import com.github.captfredricks.plentifulitems.init.ModSilkTouchBamboo;
 //import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -14,12 +18,14 @@ import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nonnull;
+
 @EventBusSubscriber(modid = Main.MODID, bus = EventBusSubscriber.Bus.MOD)
 public final class ModEventSubscriber {
     private static final Logger LOGGER = LogManager.getLogger(Main.MODID + " Mod Event Subscriber");
 
     @SubscribeEvent
-    public static void onRegisterItems(final RegistryEvent.Register<Item> event) {
+    public static void onRegisterItems(@Nonnull final RegistryEvent.Register<Item> event) {
         final IForgeRegistry<Item> registry = event.getRegistry();
 
         // Automatically register BlockItems for all custom blocks
@@ -39,13 +45,13 @@ public final class ModEventSubscriber {
         LOGGER.debug("Registered BlockItems");
     }
 
-    /*
     @SubscribeEvent
-    public static void onRegisterBlocks(final RegistryEvent.Register<Block> event) {
-        event.getRegistry().registerAll(
-                // strength: hardness, blast resistance
-                setup(new Block(Block.Properties.of(Material.STONE).strength(2.0F, 2.5F)), "halite")
-        );
+    public static void registerModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
+        final IForgeRegistry<GlobalLootModifierSerializer<?>> registry = event.getRegistry();
+
+        //registry.register(new ModSilkTouchBamboo.Serializer().setRegistryName(new ResourceLocation(Main.MODID, "silk_touch_bamboo")));
+        //registry.register(new ModFishingLoot.Serializer().setRegistryName(new ResourceLocation(Main.MODID, "fishing")));
+
+        LOGGER.debug("Registered ModifierSerializers");
     }
-    */
 }

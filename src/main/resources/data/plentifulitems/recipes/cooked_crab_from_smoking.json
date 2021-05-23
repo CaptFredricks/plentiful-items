@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "plentifulitems:crab"
+  },
+  "result": "plentifulitems:cooked_crab",
+  "experience": 0.35,
+  "cookingtime": 100
+}

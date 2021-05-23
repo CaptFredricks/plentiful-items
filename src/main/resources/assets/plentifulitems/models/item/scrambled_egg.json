@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "plentifulitems:item/coconut"
+    "layer0": "plentifulitems:item/scrambled_egg"
   }
 }

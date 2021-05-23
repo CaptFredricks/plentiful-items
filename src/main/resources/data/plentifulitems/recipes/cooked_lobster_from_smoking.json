@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "plentifulitems:lobster"
+  },
+  "result": "plentifulitems:cooked_lobster",
+  "experience": 0.35,
+  "cookingtime": 100
+}

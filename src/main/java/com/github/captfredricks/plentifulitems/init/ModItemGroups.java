@@ -2,14 +2,13 @@ package com.github.captfredricks.plentifulitems.init;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Mod;
-
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public final class ModItemGroups {
-    public static final ItemGroup PI_BLOCKS = new ModItemGroup("pi_blocks", () -> new ItemStack(ModBlocks.GROUP_ICON.get()));
-    public static final ItemGroup PI_ITEMS = new ModItemGroup("pi_items", () -> new ItemStack(ModItems.GROUP_ICON.get()));
+    public static final ItemGroup PI_BLOCKS = new ModItemGroup("pi_blocks", () -> new ItemStack(ModBlocks.BLOCKS_ICON.get()));
+    public static final ItemGroup PI_FOODS = new ModItemGroup("pi_foods", () -> new ItemStack(ModItems.FOODS_ICON.get()));
+    public static final ItemGroup PI_MATERIALS = new ModItemGroup("pi_materials", () ->new ItemStack(ModItems.MATS_ICON.get()));
 
     public static final class ModItemGroup extends ItemGroup {
         @Nonnull

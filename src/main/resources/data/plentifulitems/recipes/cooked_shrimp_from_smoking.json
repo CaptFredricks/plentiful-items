@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "plentifulitems:shrimp"
+  },
+  "result": "plentifulitems:cooked_shrimp",
+  "experience": 0.35,
+  "cookingtime": 100
+}

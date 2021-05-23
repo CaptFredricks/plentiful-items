@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "plentifulitems:block/reinforced_crate"
+    "all": "plentifulitems:block/steel_block"
   }
 }

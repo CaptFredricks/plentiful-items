@@ -16,7 +16,7 @@ public final class Main {
     private static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public Main() {
-        LOGGER.debug("Just testing our new mod!");
+        //LOGGER.debug("Just testing our new mod!");
 
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
