@@ -5,6 +5,70 @@
 *Versions: X.x.x (major releases), x.X.x (minor releases), x.x.X (patches)*
 
 ----------------------------------------------------------------------------------------------------
+## Version 0.4.0 (2021-05-25)
+
+- Reinforced crates are now crafted with 4 steel ingots and 1 crate
+- Modified previous entries in the changelog
+- Cleaned up code in the `ModItems` class and created separate classes for item groups
+- Added documentation to new and existing classes
+- Added new items:
+  - Tools: `steel_axe`, `steel_hoe`, `steel_pickaxe`, `steel_shovel`
+  - Weapons: `steel_sword`
+  - Armor: `steel_boots`, `steel_chestplate`, `steel_helmet`, `steel_leggings`
+- Created a custom tier for steel tools and weapons
+- Created a custom material for steel armor
+- Shrimp and cooked shrimp have new, unique textures
+- Scrambled eggs now have a texture
+- Added more information to the block/item `index.md` file
+
+**Modified files:**
+- build.gradle (M)
+- src/main/index.md
+- src/main/java/.../init/ModItemGroups.java
+- src/main/java/.../init/ModItems.java
+- src/main/java/.../item/ItemArmor.java (N)
+- src/main/java/.../item/ItemFood.java (N)
+- src/main/java/.../item/ItemMaterial.java (N)
+- src/main/java/.../item/ItemTool.java (N)
+- src/main/java/.../item/ItemWeapon.java (N)
+- src/main/java/.../item/ModArmorMaterial.java (N)
+- src/main/java/.../item/ModItemTier.java (N)
+- src/main/resources/assets/.../lang/en_us.json
+- src/main/resources/assets/.../models/item/steel_axe.json (N)
+- src/main/resources/assets/.../models/item/steel_boots.json (N)
+- src/main/resources/assets/.../models/item/steel_chestplate.json (N)
+- src/main/resources/assets/.../models/item/steel_helmet.json (N)
+- src/main/resources/assets/.../models/item/steel_hoe.json (N)
+- src/main/resources/assets/.../models/item/steel_leggings.json (N)
+- src/main/resources/assets/.../models/item/steel_pickaxe.json (N)
+- src/main/resources/assets/.../models/item/steel_shovel.json (N)
+- src/main/resources/assets/.../models/item/steel_sword.json (N)
+- src/main/resources/assets/.../textures/item/cooked_shrimp.png
+- src/main/resources/assets/.../textures/item/scrambled_egg.png (N)
+- src/main/resources/assets/.../textures/item/shrimp.png
+- src/main/resources/assets/.../textures/item/steel_axe.png (N)
+- src/main/resources/assets/.../textures/item/steel_boots.png (N)
+- src/main/resources/assets/.../textures/item/steel_chestplate.png (N)
+- src/main/resources/assets/.../textures/item/steel_helmet.png (N)
+- src/main/resources/assets/.../textures/item/steel_hoe.png (N)
+- src/main/resources/assets/.../textures/item/steel_leggings.png (N)
+- src/main/resources/assets/.../textures/item/steel_pickaxe.png (N)
+- src/main/resources/assets/.../textures/item/steel_shovel.png (N)
+- src/main/resources/assets/.../textures/item/steel_sword.png (N)
+- src/main/resources/assets/.../textures/models/armor/steel_layer_1.png (N)
+- src/main/resources/assets/.../textures/models/armor/steel_layer_2.png (N)
+- src/main/resources/data/.../recipes/reinforced_crate.json
+- src/main/resources/data/.../recipes/steel_axe_smithing.json (N)
+- src/main/resources/data/.../recipes/steel_boots_smithing.json (N)
+- src/main/resources/data/.../recipes/steel_chestplate_smithing.json (N)
+- src/main/resources/data/.../recipes/steel_helmet_smithing.json (N)
+- src/main/resources/data/.../recipes/steel_hoe_smithing.json (N)
+- src/main/resources/data/.../recipes/steel_leggings_smithing.json (N)
+- src/main/resources/data/.../recipes/steel_pickaxe_smithing.json (N)
+- src/main/resources/data/.../recipes/steel_shovel_smithing.json (N)
+- src/main/resources/data/.../recipes/steel_sword_smithing.json (N)
+
+----------------------------------------------------------------------------------------------------
 ## Version 0.3.0 (2021-05-22)
 
 - Tweaked previous entries in the changelog
@@ -20,7 +84,7 @@
   - `scrambled_egg` &ndash; food item made from cooking an egg (no texture yet)
   - `steel_ingot` &ndash; made by smelting iron ingots
 - Added a new creative tab labelled "Plentiful Materials"
-- Reinforced crates are now crafted with steel ingots and wooden slabs
+- Reinforced crates are now crafted with 4 steel ingots and 4 wooden slabs
 - Reinforced crates now have their own unique texture
 - Added a file that indexes all items and blocks added with the mod (this file plays no functional role and is merely informational)
 - Cleaned up code in the `ModBlocks` and `ModItems` classes
@@ -29,12 +93,12 @@
 
 **Modified files:**
 - src/main/index.md (N)
-- src/main/java/.../plentifulitems/Main.java (M)
-- src/main/java/.../plentifulitems/ModEventSubscriber.java
-- src/main/java/.../plentifulitems/init/ModBlocks.java
-- src/main/java/.../plentifulitems/init/ModFishingLoot.java (N)
-- src/main/java/.../plentifulitems/init/ModItemGroups.java
-- src/main/java/.../plentifulitems/init/ModItems.java
+- src/main/java/.../Main.java (M)
+- src/main/java/.../ModEventSubscriber.java
+- src/main/java/.../init/ModBlocks.java
+- src/main/java/.../init/ModFishingLoot.java (N)
+- src/main/java/.../init/ModItemGroups.java
+- src/main/java/.../init/ModItems.java
 - src/main/resources/assets/.../blockstates/steel_block.json (N)
 - src/main/resources/assets/.../lang/en_us.json
 - src/main/resources/assets/.../models/block/reinforced_crate.json (M)
@@ -100,10 +164,10 @@
 
 **Modified files:**
 - build.gradle (M)
-- src/main/java/.../plentifulitems/ModEventSubscriber.java (M)
-- src/main/java/.../plentifulitems/init/ModBlocks.java
-- src/main/java/.../plentifulitems/init/ModItemGroups.java
-- src/main/java/.../plentifulitems/init/ModItems.java
+- src/main/java/.../ModEventSubscriber.java (M)
+- src/main/java/.../init/ModBlocks.java
+- src/main/java/.../init/ModItemGroups.java
+- src/main/java/.../init/ModItems.java
 - src/main/resources/assets/.../blockstates/crate.json (N)
 - src/main/resources/assets/.../blockstates/reinforced_crate.json (N)
 - src/main/resources/assets/.../lang/en_us.json
@@ -148,11 +212,11 @@
 - gradlew (N)
 - gradlew.bat (N)
 - settings.gradle (N)
-- src/main/java/.../plentifulitems/Main.java (N)
-- src/main/java/.../plentifulitems/ModEventSubscriber.java (N)
-- src/main/java/.../plentifulitems/init/ModBlocks.java (N)
-- src/main/java/.../plentifulitems/init/ModItemGroups.java (N)
-- src/main/java/.../plentifulitems/init/ModItems.java (N)
+- src/main/java/.../Main.java (N)
+- src/main/java/.../ModEventSubscriber.java (N)
+- src/main/java/.../init/ModBlocks.java (N)
+- src/main/java/.../init/ModItemGroups.java (N)
+- src/main/java/.../init/ModItems.java (N)
 - src/main/resources/META-INF/mods.toml (N)
 - src/main/resources/assets/.../blockstates/halite.json (N)
 - src/main/resources/assets/.../lang/en_us.json (N)

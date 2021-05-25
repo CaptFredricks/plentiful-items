@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ISI",
-    "S S",
-    "ISI"
+    "I I",
+    " C ",
+    "I I"
   ],
   "key": {
+    "C": {
+      "item": "plentifulitems:crate"
+    },
     "I": {
       "item": "plentifulitems:steel_ingot"
-    },
-    "S": {
-      "tag": "minecraft:wooden_slabs"
     }
   },
   "result": {

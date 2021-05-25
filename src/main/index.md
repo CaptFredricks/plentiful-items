@@ -3,25 +3,91 @@
 ----------------------------------------------------------------------------------------------------
 ## Blocks
 
-- Block of steel
-- Crate
-- Halite
-- Reinforced crate
+- `Block of steel`
+  - decoration block
+  - recipe: 9 steel ingots
+- `Crate`
+  - storage block
+  - recipe: 4 wooden planks + 4 wooden slabs
+- `Halite`
+  - ore block
+  - drops: salt
+- `Reinforced crate`
+  - storage block
+  - recipe: 1 crate + 4 steel ingots
 
 ----------------------------------------------------------------------------------------------------
 ## Items
 
-- Banana
-- Butter
-- Cheese
-- Coconut
-- Coconut cream pie
-- Cooked crab
-- Cooked lobster
-- Cooked shrimp
-- Mango
-- Raw crab
-- Raw lobster
-- Raw shrimp
-- Salt
-- Steel ingot
+- `Banana`
+  - food item
+  - drops from jungle leaves
+- `Butter`
+  - ingredient item
+  - recipe: 1 milk bucket + 1 salt (produces 3)
+- `Cheese`
+  - food item
+  - recipe: 2 milk buckets + 2 salt (produces 2)
+- `Coconut`
+  - food item
+  - drops from jungle leaves
+- `Coconut cream pie`
+  - food item
+  - recipe: 1 coconut + 1 milk bucket + 1 sugar
+- `Cooked crab`
+  - food item
+  - cooking recipe: raw crab
+- `Cooked lobster`
+  - food item
+  - cooking recipe: raw lobster
+- `Cooked shrimp`
+  - food item
+  - cooking recipe: raw shrimp
+- `Mango`
+  - food item
+  - drops from jungle leaves
+- `Raw crab`
+  - ingredient item
+  - drops from fishing
+- `Raw lobster`
+  - ingredient item
+  - drops from fishing
+- `Raw shrimp`
+  - ingredient item
+  - drops from fishing
+- `Salt`
+  - material item
+  - drops from halite
+- `Scrambled egg`
+  - food item
+  - cooking recipe: egg
+- `Steel axe`
+  - tool item
+  - smithing recipe: iron axe + steel ingot
+- `Steel boots`
+  - armor item
+  - smithing recipe: iron boots + steel ingot
+- `Steel chestplate`
+  - armor item
+  - smithing recipe: iron chestplate + steel ingot
+- `Steel helmet`
+  - armor item
+  - smithing recipe: iron helmet + steel ingot
+- `Steel hoe`
+  - tool item
+  - smithing recipe: iron hoe + steel ingot
+- `Steel ingot`
+  - material item
+  - smelting recipe: iron ingot
+- `Steel leggings`
+  - armor item
+  - smithing recipe: iron leggings + steel ingot
+- `Steel pickaxe`
+  - tool item
+  - smithing recipe: iron pickaxe + steel ingot
+- `Steel shovel`
+  - tool item
+  - smithing recipe: iron shovel + steel ingot
+- `Steel sword`
+  - weapon item
+  - smithing recipe: iron sword + steel ingot

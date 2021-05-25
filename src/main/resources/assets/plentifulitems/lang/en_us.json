@@ -17,8 +17,19 @@
     "item.plentifulitems.salt": "Salt",
     "item.plentifulitems.scrambled_egg": "Scrambled Egg",
     "item.plentifulitems.shrimp": "Raw Shrimp",
+    "item.plentifulitems.steel_axe": "Steel Axe",
+    "item.plentifulitems.steel_boots": "Steel Boots",
+    "item.plentifulitems.steel_chestplate": "Steel Chestplate",
+    "item.plentifulitems.steel_helmet": "Steel Helmet",
+    "item.plentifulitems.steel_hoe": "Steel Hoe",
     "item.plentifulitems.steel_ingot": "Steel Ingot",
+    "item.plentifulitems.steel_leggings": "Steel Leggings",
+    "item.plentifulitems.steel_pickaxe": "Steel Pickaxe",
+    "item.plentifulitems.steel_shovel": "Steel Shovel",
+    "item.plentifulitems.steel_sword": "Steel Sword",
     "itemGroup.pi_blocks": "Plentiful Blocks",
-    "itemGroup.pi_foods": "Plentiful Foodstuffs",
-    "itemGroup.pi_materials": "Plentiful Materials"
+    "itemGroup.pi_foods": "Plentiful Foods",
+    "itemGroup.pi_materials": "Plentiful Materials",
+    "itemGroup.pi_tools": "Plentiful Tools",
+    "itemGroup.pi_weapons": "Plentiful Weapons & Armor"
 }

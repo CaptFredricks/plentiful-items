@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:iron_pickaxe"
+  },
+  "addition": {
+    "item": "plentifulitems:steel_ingot"
+  },
+  "result": {
+    "item": "plentifulitems:steel_pickaxe"
+  }
+}
