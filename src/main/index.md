@@ -8,12 +8,14 @@
   - recipe: 9 steel ingots
 - `Crate`
   - storage block
+  - works like a barrel
   - recipe: 4 wooden planks + 4 wooden slabs
-- `Halite`
+- `Halite` (doesn't generate naturally)
   - ore block
   - drops: salt
 - `Reinforced crate`
   - storage block
+  - works like a shulker box
   - recipe: 1 crate + 4 steel ingots
 
 ----------------------------------------------------------------------------------------------------
@@ -34,22 +36,22 @@
 - `Coconut cream pie`
   - food item
   - recipe: 1 coconut + 1 milk bucket + 1 sugar
-- `Cooked crab`
+- `Cooked crab` (no texture)
   - food item
   - cooking recipe: raw crab
-- `Cooked lobster`
+- `Cooked lobster` (no texture)
   - food item
   - cooking recipe: raw lobster
 - `Cooked shrimp`
   - food item
   - cooking recipe: raw shrimp
-- `Mango`
+- `Mango` (needs new texture)
   - food item
   - drops from jungle leaves
-- `Raw crab`
+- `Raw crab` (no texture)
   - ingredient item
   - drops from fishing
-- `Raw lobster`
+- `Raw lobster` (no texture)
   - ingredient item
   - drops from fishing
 - `Raw shrimp`

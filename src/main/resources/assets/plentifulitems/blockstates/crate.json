@@ -1,7 +1,56 @@
 {
   "variants": {
-    "": {
+    "facing=down,open=false": {
+      "x": 180,
       "model": "plentifulitems:block/crate"
+    },
+    "facing=down,open=true": {
+      "x": 180,
+      "model": "plentifulitems:block/crate_open"
+    },
+    "facing=east,open=false": {
+      "x": 90,
+      "y": 90,
+      "model": "plentifulitems:block/crate"
+    },
+    "facing=east,open=true": {
+      "x": 90,
+      "y": 90,
+      "model": "plentifulitems:block/crate_open"
+    },
+    "facing=north,open=false": {
+      "x": 90,
+      "model": "plentifulitems:block/crate"
+    },
+    "facing=north,open=true": {
+      "x": 90,
+      "model": "plentifulitems:block/crate_open"
+    },
+    "facing=south,open=false": {
+      "x": 90,
+      "y": 180,
+      "model": "plentifulitems:block/crate"
+    },
+    "facing=south,open=true": {
+      "x": 90,
+      "y": 180,
+      "model": "plentifulitems:block/crate_open"
+    },
+    "facing=up,open=false": {
+      "model": "plentifulitems:block/crate"
+    },
+    "facing=up,open=true": {
+      "model": "plentifulitems:block/crate_open"
+    },
+    "facing=west,open=false": {
+      "x": 90,
+      "y": 270,
+      "model": "plentifulitems:block/crate"
+    },
+    "facing=west,open=true": {
+      "x": 90,
+      "y": 270,
+      "model": "plentifulitems:block/crate_open"
     }
   }
 }

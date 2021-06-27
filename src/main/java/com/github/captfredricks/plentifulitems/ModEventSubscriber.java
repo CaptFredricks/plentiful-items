@@ -3,6 +3,7 @@ package com.github.captfredricks.plentifulitems;
 import com.github.captfredricks.plentifulitems.init.ModBlocks;
 import com.github.captfredricks.plentifulitems.init.ModFishingLoot;
 import com.github.captfredricks.plentifulitems.init.ModItemGroups;
+import com.github.captfredricks.plentifulitems.init.ModJungleLeavesLoot;
 //import com.github.captfredricks.plentifulitems.init.ModSilkTouchBamboo;
 //import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
@@ -22,7 +23,7 @@ import javax.annotation.Nonnull;
 
 @EventBusSubscriber(modid = Main.MODID, bus = EventBusSubscriber.Bus.MOD)
 public final class ModEventSubscriber {
-    private static final Logger LOGGER = LogManager.getLogger(Main.MODID + " Mod Event Subscriber");
+    private static final Logger LOGGER = LogManager.getLogger(Main.MODID + " ModEventSubscriber");
 
     @SubscribeEvent
     public static void onRegisterItems(@Nonnull final RegistryEvent.Register<Item> event) {
@@ -49,8 +50,8 @@ public final class ModEventSubscriber {
     public static void registerModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
         final IForgeRegistry<GlobalLootModifierSerializer<?>> registry = event.getRegistry();
 
-        //registry.register(new ModSilkTouchBamboo.Serializer().setRegistryName(new ResourceLocation(Main.MODID, "silk_touch_bamboo")));
-        //registry.register(new ModFishingLoot.Serializer().setRegistryName(new ResourceLocation(Main.MODID, "fishing")));
+        registry.register(new ModFishingLoot.Serializer().setRegistryName(new ResourceLocation(Main.MODID, "fishing")));
+        registry.register(new ModJungleLeavesLoot.Serializer().setRegistryName(new ResourceLocation(Main.MODID, "jungle_leaves")));
 
         LOGGER.debug("Registered ModifierSerializers");
     }

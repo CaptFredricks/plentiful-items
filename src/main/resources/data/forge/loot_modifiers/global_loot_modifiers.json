@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
-    "plentifulitems:fishing"
+    "plentifulitems:fishing",
+    "plentifulitems:jungle_leaves"
   ]
 }

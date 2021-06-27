@@ -1,21 +1,19 @@
 package com.github.captfredricks.plentifulitems.item;
 
-/**
- * This enum registers custom armor materials.
- * @since 0.4.0
- */
-
 import com.github.captfredricks.plentifulitems.Main;
 import com.github.captfredricks.plentifulitems.init.ModItems;
+import java.util.function.Supplier;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
-import mcp.MethodsReturnNonnullByDefault;
-import java.util.function.Supplier;
-
+/**
+ * This enum registers custom armor materials.
+ * @since 0.4.0
+ */
 @MethodsReturnNonnullByDefault
 public enum ModArmorMaterial implements IArmorMaterial {
     STEEL("steel", 504, new int[]{2, 5, 6, 2}, 14, "item.armor.equip_iron", () -> Ingredient.fromItems(ModItems.STEEL.get()), 1.0f, 0.0f);

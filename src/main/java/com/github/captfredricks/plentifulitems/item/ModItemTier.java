@@ -1,17 +1,15 @@
 package com.github.captfredricks.plentifulitems.item;
 
+import com.github.captfredricks.plentifulitems.init.ModItems;
+import java.util.function.Supplier;
+import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.crafting.Ingredient;
+
 /**
  * This enum registers custom item tiers.
  * @since 0.4.0
  */
-
-import com.github.captfredricks.plentifulitems.init.ModItems;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
-
-import mcp.MethodsReturnNonnullByDefault;
-import java.util.function.Supplier;
-
 @MethodsReturnNonnullByDefault
 public enum ModItemTier implements IItemTier {
     STEEL(504, 7.0f, 2.0f, 2, 14, () -> Ingredient.fromItems(ModItems.STEEL.get()));

@@ -1,0 +1,44 @@
+{
+  "type": "plentifulitems:jungle_leaves",
+  "conditions": [
+    {
+      "condition": "minecraft:block_state_property",
+      "block": "minecraft:jungle_leaves"
+    },
+    {
+      "condition": "minecraft:survives_explosion"
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:alternative",
+        "terms": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "item": "minecraft:shears"
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "enchantments": [
+                {
+                  "enchantment": "minecraft:silk_touch",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "sapling": "minecraft:jungle_sapling",
+  "stick": "minecraft:stick",
+  "banana": "plentifulitems:banana",
+  "mango": "plentifulitems:mango",
+  "coconut": "plentifulitems:coconut"
+}

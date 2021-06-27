@@ -2,6 +2,7 @@ package com.github.captfredricks.plentifulitems;
 
 import com.github.captfredricks.plentifulitems.init.ModBlocks;
 import com.github.captfredricks.plentifulitems.init.ModItems;
+import com.github.captfredricks.plentifulitems.init.ModTileEntityTypes;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +25,7 @@ public final class Main {
         // Register deferred registers
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
+        ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
 
         // Register configs
         //modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);

@@ -2,10 +2,10 @@
   "type": "plentifulitems:fishing",
   "conditions": [
     {
-      "condition": "minecraft:match_tool",
-      "predicate": {
-        "item": "minecraft:fishing_rod"
-      }
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:gameplay/fishing"
     }
-  ]
+  ],
+  "table": "plentifulitems:gameplay/fishing/crustaceans",
+  "weight": 0.25
 }

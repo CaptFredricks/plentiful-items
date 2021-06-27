@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "plentifulitems:block/crate_open",
+    "bottom": "plentifulitems:block/crate",
+    "side": "plentifulitems:block/crate"
+  }
+}

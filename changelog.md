@@ -5,6 +5,53 @@
 *Versions: X.x.x (major releases), x.X.x (minor releases), x.x.X (patches)*
 
 ----------------------------------------------------------------------------------------------------
+## Version 0.5.0 (2021-06-26)
+
+- Created a modified loot table for jungle leaves
+- Bananas, mangoes, and coconuts now have a chance to drop from jungle leaves
+- Raw shrimp, raw crabs, and raw lobster now have a chance to drop from fishing loot
+- Crates and reinforced crates are now functional
+  - Crates function like barrels
+  - Reinforced crates function like shulker boxes, keeping their inventory when broken
+  - Added an "open" texture and block state for both crate variants
+- Added missing documentation in multiple files
+- General cleanup
+- Renamed multiple classes and methods
+
+**Modified files:**
+- src/main/index.md
+- src/main/java/.../Main.java (M)
+- src/main/java/.../ModEventSubscriber.java (M)
+- src/main/java/.../block/BlockGen.java (N)
+- src/main/java/.../block/CrateBlock.java (N)
+- src/main/java/.../block/ReinforcedCrateBlock.java (N)
+- src/main/java/.../init/ModBlocks.java
+- src/main/java/.../init/ModFishingLoot.java
+- src/main/java/.../init/ModItems.java
+- src/main/java/.../init/ModJungleLeavesLoot.java (N)
+- src/main/java/.../init/ModTileEntityTypes.java (N)
+- src/main/java/.../item/ItemGenArmor.java (R)
+- src/main/java/.../item/ItemGenFood.java (R)
+- src/main/java/.../item/ItemGenMaterial.java (R)
+- src/main/java/.../item/ItemGenTool.java (R)
+- src/main/java/.../item/ItemGenWeapon.java (R)
+- src/main/java/.../item/ModArmorMaterial.java (M)
+- src/main/java/.../item/ModItemTier.java (M)
+- src/main/java/.../tileentity/CrateTileEntity.java (N)
+- src/main/java/.../tileentity/ReinforcedCrateTileEntity.java (N)
+- src/main/resources/assets/.../blockstates/crate.json
+- src/main/resources/assets/.../blockstates/reinforced_crate.json
+- src/main/resources/assets/.../models/block/crate_open.json (N)
+- src/main/resources/assets/.../models/block/reinforced_crate_open.json (N)
+- src/main/resources/assets/.../textures/block/crate_open.png (N)
+- src/main/resources/assets/.../textures/block/reinforced_crate_open.png (N)
+- src/main/resources/data/forge/loot_modifiers/global_loot_modifiers.json
+- src/main/resources/data/plentifulitems/loot_modifiers/fishing.json
+- src/main/resources/data/plentifulitems/loot_modifiers/jungle_leaves.json (N)
+- src/main/resources/data/plentifulitems/loot_tables/blocks/reinforced_crate.json
+- src/main/resources/data/plentifulitems/loot_tables/gameplay/fishing/crustaceans.json
+
+----------------------------------------------------------------------------------------------------
 ## Version 0.4.0 (2021-05-25)
 
 - Reinforced crates are now crafted with 4 steel ingots and 1 crate
