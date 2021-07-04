@@ -1,9 +1,17 @@
 {
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "minecraft:egg"
-  },
-  "result": "plentifulitems:scrambled_egg",
-  "experience": 0.35,
-  "cookingtime": 200
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "plentifulitems:butter"
+    }
+  ],
+  "result": {
+    "item": "plentifulitems:scrambled_egg"
+  }
 }

@@ -5,6 +5,105 @@
 *Versions: X.x.x (major releases), x.X.x (minor releases), x.x.X (patches)*
 
 ----------------------------------------------------------------------------------------------------
+## Version 0.6.0 (2021-07-03)
+
+- Block items are now registered in the `ModItems` class to allow for easier property manipulation
+- General cleanup of various classes and methods
+- Crates and reinforced crates are now placed when fired from a dispenser
+- Reinforced crates can not have shulker boxes or other reinforced crates placed inside them
+  - Shulker boxes still allow reinforced crates to be placed inside them (fix coming later)
+- Halite now generates naturally in the world between y-0 and y-63
+- Scrambled eggs are now made by crafting instead of smelting (recipe: 2 eggs and 1 butter)
+- Custom recipes now unlock properly in the recipe book
+- Added new item:
+  - `steel_rivet` &ndash; used to craft reinforced crates
+- Reinforced crates now require 1 crate, 4 steel ingots, and 4 steel rivets to craft (the old recipe was 1 crate + 4 steel ingots)
+- Mangoes have a new texture
+- Crab and cooked crab now have textures
+- Lobster and cooked lobster now have textures
+- Reinforced crates have a new texture
+- Moved the `index.md` file to the root directory
+- Minor code refactoring
+- Added more details and a missing item to the item index
+- Created a simple README
+- Added the GNU General Public License v3.0
+
+**Modified files:**
+- LICENSE.md (N)
+- README.md (N)
+- build.gradle (M)
+- index.md
+- src/main/java/.../Main.java
+- src/main/java/.../ModEventSubscriber.java
+- src/main/java/.../block/BlockGen.java
+- src/main/java/.../block/ModShulkerBoxBlock.java (N)
+- src/main/java/.../block/ReinforcedCrateBlock.java
+- src/main/java/.../container/ModShulkerBoxContainer.java (N)
+- src/main/java/.../container/ModShulkerBoxSlot.java (N)
+- src/main/java/.../container/ReinforcedCrateContainer.java (N)
+- src/main/java/.../container/ReinforcedCrateSlot.java (N)
+- src/main/java/.../dispenser/CrateDispenseBehavior.java (N)
+- src/main/java/.../init/ModBlocks.java
+- src/main/java/.../init/ModBlocksVanilla.java (N)
+- src/main/java/.../init/ModContainerTypes.java (N)
+- src/main/java/.../init/ModItemGroups.java (M)
+- src/main/java/.../init/ModItems.java
+- src/main/java/.../init/ModItemsVanilla.java (N)
+- src/main/java/.../item/ItemGenArmor.java
+- src/main/java/.../item/ItemGenBlock.java (N)
+- src/main/java/.../item/ItemGenFood.java
+- src/main/java/.../item/ItemGenMaterial.java
+- src/main/java/.../item/ItemGenTool.java
+- src/main/java/.../item/ItemGenWeapon.java
+- src/main/java/.../tileentity/ModShulkerBoxTileEntity.java (N)
+- src/main/java/.../tileentity/ReinforcedCrateTileEntity.java
+- src/main/java/.../world/OreGeneration.java (N)
+- src/main/resources/assets/.../lang/en_us.json
+- src/main/resources/assets/.../models/item/steel_rivet.json (N)
+- src/main/resources/assets/.../textures/block/reinforced_crate.png
+- src/main/resources/assets/.../textures/block/reinforced_crate_open.png
+- src/main/resources/assets/.../textures/item/cooked_crab.png (N)
+- src/main/resources/assets/.../textures/item/cooked_lobster.png (N)
+- src/main/resources/assets/.../textures/item/crab.png (N)
+- src/main/resources/assets/.../textures/item/lobster.png (N)
+- src/main/resources/assets/.../textures/item/mango.png
+- src/main/resources/assets/.../textures/item/steel_rivet.png (N)
+- src/main/resources/data/.../advancements/recipes/building_blocks/steel_block.json (N)
+- src/main/resources/data/.../advancements/recipes/combat/steel_boots_smithing.json (N)
+- src/main/resources/data/.../advancements/recipes/combat/steel_chestplate_smithing.json (N)
+- src/main/resources/data/.../advancements/recipes/combat/steel_helmet_smithing.json (N)
+- src/main/resources/data/.../advancements/recipes/combat/steel_leggings_smithing.json (N)
+- src/main/resources/data/.../advancements/recipes/combat/steel_sword_smithing.json (N)
+- src/main/resources/data/.../advancements/recipes/decorations/crate.json (N)
+- src/main/resources/data/.../advancements/recipes/decorations/reinforced_crate.json (N)
+- src/main/resources/data/.../advancements/recipes/food/butter.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cheese.json (N)
+- src/main/resources/data/.../advancements/recipes/food/coconut_cream_pie.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_crab.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_crab_from_campfire_cooking.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_crab_from_smoking.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_lobster.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_lobster_from_campfire_cooking.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_lobster_from_smoking.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_shrimp.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_shrimp_from_campfire_cooking.json (N)
+- src/main/resources/data/.../advancements/recipes/food/cooked_shrimp_from_smoking.json (N)
+- src/main/resources/data/.../advancements/recipes/food/scrambled_egg.json (N)
+- src/main/resources/data/.../advancements/recipes/misc/steel_ingot.json (N)
+- src/main/resources/data/.../advancements/recipes/misc/steel_ingot_from_blasting.json (N)
+- src/main/resources/data/.../advancements/recipes/misc/steel_ingot_from_steel_block.json (N)
+- src/main/resources/data/.../advancements/recipes/misc/steel_rivet.json (N)
+- src/main/resources/data/.../advancements/recipes/tools/steel_axe_smithing.json (N)
+- src/main/resources/data/.../advancements/recipes/tools/steel_hoe_smithing.json (N)
+- src/main/resources/data/.../advancements/recipes/tools/steel_pickaxe_smithing.json (N)
+- src/main/resources/data/.../advancements/recipes/tools/steel_shovel_smithing.json (N)
+- src/main/resources/data/.../recipes/reinforced_crate.json
+- src/main/resources/data/.../recipes/scrambled_egg.json
+- src/main/resources/data/.../recipes/scrambled_egg_from_campfire_cooking.json (X)
+- src/main/resources/data/.../recipes/scrambled_egg_from_smoking.json (X)
+- src/main/resources/data/.../recipes/steel_rivet.json (N)
+
+----------------------------------------------------------------------------------------------------
 ## Version 0.5.0 (2021-06-26)
 
 - Created a modified loot table for jungle leaves

@@ -60,13 +60,13 @@ public class ReinforcedCrateBlock extends ContainerBlock {
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(final IBlockReader world) {
+    public TileEntity createNewTileEntity(@Nonnull final IBlockReader world) {
         return ModTileEntityTypes.REINFORCED_CRATE.get().create();
     }
 
     @Nonnull
     @Override
-    public ActionResultType onBlockActivated(final BlockState state, final World world, final BlockPos pos, final PlayerEntity player, final Hand hand, final BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos, @Nonnull final PlayerEntity player, @Nonnull final Hand hand, @Nonnull final BlockRayTraceResult hit) {
         if(world.isRemote) {
             return ActionResultType.SUCCESS;
         } else if(player.isSpectator()) {
@@ -87,7 +87,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
     }
 
     @Override
-    public void onBlockPlacedBy(final World world, final BlockPos pos, final BlockState state, final LivingEntity placer, final ItemStack stack) {
+    public void onBlockPlacedBy(@Nonnull final World world, @Nonnull final BlockPos pos, @Nonnull final BlockState state, final LivingEntity placer, final ItemStack stack) {
         if(stack.hasDisplayName()) {
             TileEntity tileentity = world.getTileEntity(pos);
 
@@ -98,7 +98,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
     }
 
     @Override
-    public void onReplaced(final BlockState state, final World world, final BlockPos pos, final BlockState newState, final boolean isMoving) {
+    public void onReplaced(final BlockState state, @Nonnull final World world, @Nonnull final BlockPos pos, final BlockState newState, final boolean isMoving) {
         if(!state.matchesBlock(newState.getBlock())) {
             TileEntity tileentity = world.getTileEntity(pos);
 
@@ -111,14 +111,14 @@ public class ReinforcedCrateBlock extends ContainerBlock {
     }
 
     @Override
-    public void onBlockHarvested(final World world, final BlockPos pos, final BlockState state, final PlayerEntity player) {
+    public void onBlockHarvested(final World world, @Nonnull final BlockPos pos, @Nonnull final BlockState state, @Nonnull final PlayerEntity player) {
         TileEntity tileentity = world.getTileEntity(pos);
 
         if(tileentity instanceof ReinforcedCrateTileEntity) {
             ReinforcedCrateTileEntity reinforcedcratetileentity = (ReinforcedCrateTileEntity)tileentity;
 
             if(!world.isRemote && player.isCreative() && !reinforcedcratetileentity.isEmpty()) {
-                ItemStack itemstack = this.getItem(world, pos, state); //check whether this works
+                ItemStack itemstack = this.getItem(world, pos, state);
                 CompoundNBT compoundnbt = reinforcedcratetileentity.saveToNbt(new CompoundNBT());
                 LOGGER.debug(itemstack);
 
@@ -143,7 +143,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
 
     @Nonnull
     @Override
-    public List<ItemStack> getDrops(final BlockState state, LootContext.Builder builder) {
+    public List<ItemStack> getDrops(@Nonnull final BlockState state, LootContext.Builder builder) {
         TileEntity tileentity = builder.get(LootParameters.BLOCK_ENTITY);
 
         if(tileentity instanceof ReinforcedCrateTileEntity) {
@@ -161,7 +161,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
 
     @Nonnull
     @Override
-    public ItemStack getItem(final IBlockReader world, final BlockPos pos, final BlockState state) {
+    public ItemStack getItem(@Nonnull final IBlockReader world, @Nonnull final BlockPos pos, @Nonnull final BlockState state) {
         ItemStack itemstack = super.getItem(world, pos, state);
         ReinforcedCrateTileEntity reinforcedcratetileentity = (ReinforcedCrateTileEntity)world.getTileEntity(pos);
         CompoundNBT compoundnbt = reinforcedcratetileentity.saveToNbt(new CompoundNBT());
@@ -175,10 +175,9 @@ public class ReinforcedCrateBlock extends ContainerBlock {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(final ItemStack stack, @Nullable final IBlockReader world, final List<ITextComponent> tooltip, final ITooltipFlag flag) {
+    public void addInformation(@Nonnull final ItemStack stack, @Nullable final IBlockReader world, @Nonnull final List<ITextComponent> tooltip, @Nonnull final ITooltipFlag flag) {
         super.addInformation(stack, world, tooltip, flag);
         CompoundNBT compoundnbt = stack.getChildTag("BlockEntityTag");
-        LOGGER.debug(compoundnbt);
 
         if(compoundnbt != null) {
             if(compoundnbt.contains("LootTable", 8)) {
@@ -212,17 +211,17 @@ public class ReinforcedCrateBlock extends ContainerBlock {
 
     @Nonnull
     @Override
-    public BlockRenderType getRenderType(final BlockState state) {
+    public BlockRenderType getRenderType(@Nonnull final BlockState state) {
         return BlockRenderType.MODEL;
     }
 
     @Override
-    public boolean hasComparatorInputOverride(final BlockState state) {
+    public boolean hasComparatorInputOverride(@Nonnull final BlockState state) {
         return true;
     }
 
     @Override
-    public int getComparatorInputOverride(final BlockState blockState, final World world, final BlockPos pos) {
+    public int getComparatorInputOverride(@Nonnull final BlockState blockState, final World world, @Nonnull final BlockPos pos) {
         return Container.calcRedstoneFromInventory((IInventory)world.getTileEntity(pos));
     }
 

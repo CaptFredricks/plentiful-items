@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "I I",
-    " C ",
-    "I I"
+    "IRI",
+    "RCR",
+    "IRI"
   ],
   "key": {
     "C": {
@@ -11,6 +11,9 @@
     },
     "I": {
       "item": "plentifulitems:steel_ingot"
+    },
+    "R": {
+      "item": "plentifulitems:steel_rivet"
     }
   },
   "result": {

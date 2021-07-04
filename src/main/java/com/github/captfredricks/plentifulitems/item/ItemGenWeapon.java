@@ -10,10 +10,24 @@ import net.minecraftforge.fml.RegistryObject;
  * @since 0.4.0
  */
 public final class ItemGenWeapon {
-    private static final ItemGroup item_group = ModItemGroups.PI_WEAPONS;
+    private static final ItemGroup item_group = ModItemGroups.PI_COMBAT;
 
     /**
-     * Generates a sword item.
+     * Generates a sword item with custom properties.
+     * @since 0.6.0
+     * @param name the item's name
+     * @param tier the item's tier
+     * @param damage the base damage of the item
+     * @param speed the speed of the item when used
+     * @param props the item's properties
+     * @return RegistryObject<Item>
+     */
+    public static RegistryObject<Item> genSword(final String name, final IItemTier tier, final int damage, final float speed, final Item.Properties props) {
+        return ModItems.ITEMS.register(name, () -> new SwordItem(tier, damage, speed, props.group(item_group)));
+    }
+
+    /**
+     * Generates a sword item with default properties.
      * @since 0.4.0
      * @param name the item's name
      * @param tier the item's tier

@@ -25,11 +25,12 @@
     "item.plentifulitems.steel_ingot": "Steel Ingot",
     "item.plentifulitems.steel_leggings": "Steel Leggings",
     "item.plentifulitems.steel_pickaxe": "Steel Pickaxe",
+    "item.plentifulitems.steel_rivet": "Steel Rivet",
     "item.plentifulitems.steel_shovel": "Steel Shovel",
     "item.plentifulitems.steel_sword": "Steel Sword",
     "itemGroup.pi_blocks": "Plentiful Blocks",
     "itemGroup.pi_foods": "Plentiful Foods",
     "itemGroup.pi_materials": "Plentiful Materials",
     "itemGroup.pi_tools": "Plentiful Tools",
-    "itemGroup.pi_weapons": "Plentiful Weapons & Armor"
+    "itemGroup.pi_combat": "Plentiful Weapons & Armor"
 }

@@ -1,14 +1,20 @@
 package com.github.captfredricks.plentifulitems.tileentity;
 
 import com.github.captfredricks.plentifulitems.block.ReinforcedCrateBlock;
+import com.github.captfredricks.plentifulitems.container.ReinforcedCrateContainer;
 import com.github.captfredricks.plentifulitems.init.ModBlocks;
 import com.github.captfredricks.plentifulitems.init.ModTileEntityTypes;
+import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -21,7 +27,8 @@ import net.minecraft.util.text.TranslationTextComponent;
  * This class generates a tile entity for reinforced crates.
  * @since 0.5.0
  */
-public class ReinforcedCrateTileEntity extends LockableLootTileEntity {
+public final class ReinforcedCrateTileEntity extends LockableLootTileEntity implements IInventory {
+    private static final int[] SLOTS = IntStream.range(0, 27).toArray();
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
     private int numPlayersUsing;
 
@@ -30,14 +37,14 @@ public class ReinforcedCrateTileEntity extends LockableLootTileEntity {
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
+    public void read(@Nonnull final BlockState state, @Nonnull final CompoundNBT nbt) {
         super.read(state, nbt);
         this.loadFromNbt(nbt);
     }
 
     @Nonnull
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundNBT write(@Nonnull final CompoundNBT compound) {
         super.write(compound);
         return this.saveToNbt(compound);
     }
@@ -54,7 +61,7 @@ public class ReinforcedCrateTileEntity extends LockableLootTileEntity {
     }
 
     @Override
-    protected void setItems(final NonNullList<ItemStack> items) {
+    protected void setItems(@Nonnull final NonNullList<ItemStack> items) {
         this.items = items;
     }
 
@@ -66,8 +73,9 @@ public class ReinforcedCrateTileEntity extends LockableLootTileEntity {
 
     @Nonnull
     @Override
-    protected Container createMenu(final int id, final PlayerInventory player) {
-        return ChestContainer.createGeneric9X3(id, player, this);
+    protected Container createMenu(final int id, @Nonnull final PlayerInventory player) {
+        //return new ShulkerBoxContainer(id, player, this);
+        return new ReinforcedCrateContainer(id, player, this);
     }
 
     @Override
@@ -120,6 +128,33 @@ public class ReinforcedCrateTileEntity extends LockableLootTileEntity {
 
         return compound;
     }
+
+    @Override
+    public boolean isItemValidForSlot(final int index, @Nonnull final ItemStack stack) {
+        boolean isCrate = (Block.getBlockFromItem(stack.getItem()) instanceof ReinforcedCrateBlock);
+        boolean isShulker = (Block.getBlockFromItem(stack.getItem()) instanceof ShulkerBoxBlock);
+
+        return !isCrate && !isShulker;
+    }
+    /*
+    @Nonnull
+    @Override
+    public int[] getSlotsForFace(@Nonnull final Direction side) {
+        return SLOTS;
+    }
+
+    @Override
+    public boolean canInsertItem(final int index, final ItemStack stack, @Nullable final Direction direction) {
+        boolean isCrate = (Block.getBlockFromItem(stack.getItem()) instanceof ReinforcedCrateBlock);
+        boolean isShulker = (Block.getBlockFromItem(stack.getItem()) instanceof ShulkerBoxBlock);
+
+        return !isCrate && !isShulker;
+    }
+
+    @Override
+    public boolean canExtractItem(final int index, @Nonnull final ItemStack stack, @Nonnull final Direction direction) {
+        return true;
+    }*/
 
     /**
      * Toggle the 'open' block state property.

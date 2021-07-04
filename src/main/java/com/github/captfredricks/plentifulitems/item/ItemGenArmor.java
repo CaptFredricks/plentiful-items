@@ -11,10 +11,23 @@ import net.minecraftforge.fml.RegistryObject;
  * @since 0.4.0
  */
 public final class ItemGenArmor {
-    private static final ItemGroup item_group = ModItemGroups.PI_WEAPONS;
+    private static final ItemGroup item_group = ModItemGroups.PI_COMBAT;
 
     /**
-     * Generates an armor item.
+     * Generates an armor item with custom properties.
+     * @since 0.6.0
+     * @param name the item's name
+     * @param material the item's material type
+     * @param slot the slot the item should occupy when equipped
+     * @param props the item's properties
+     * @return RegistryObject<Item>
+     */
+    public static RegistryObject<Item> gen(final String name, final IArmorMaterial material, final EquipmentSlotType slot, final Item.Properties props) {
+        return ModItems.ITEMS.register(name, () -> new ArmorItem(material, slot, props.group(item_group)));
+    }
+
+    /**
+     * Generates an armor item with default properties.
      * @since 0.4.0
      * @param name the item's name
      * @param material the item's material type

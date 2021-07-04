@@ -15,18 +15,18 @@ public final class ItemGenFood {
     private static final ItemGroup item_group = ModItemGroups.PI_FOODS;
 
     /**
-     * Generates an edible food item.
-     * @since 0.2.0
+     * Generates a food item with custom properties.
+     * @since 0.6.0
      * @param name the item's name
-     * @param food the food generator
+     * @param props the item's properties
      * @return RegistryObject<Item>
      */
-    public static RegistryObject<Item> gen(final String name, final Food food) {
-        return ModItems.ITEMS.register(name, () -> new Item(new Item.Properties().group(item_group).food(food)));
+    public static RegistryObject<Item> gen(final String name, final Item.Properties props) {
+        return ModItems.ITEMS.register(name, () -> new Item(props.group(item_group)));
     }
 
     /**
-     * Generates a non-edible food item.
+     * Generates a food item with default properties.
      * @since 0.2.0
      * @param name the item's name
      * @return RegistryObject<Item>

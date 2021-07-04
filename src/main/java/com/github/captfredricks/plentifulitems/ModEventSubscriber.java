@@ -4,8 +4,7 @@ import com.github.captfredricks.plentifulitems.init.ModBlocks;
 import com.github.captfredricks.plentifulitems.init.ModFishingLoot;
 import com.github.captfredricks.plentifulitems.init.ModItemGroups;
 import com.github.captfredricks.plentifulitems.init.ModJungleLeavesLoot;
-//import com.github.captfredricks.plentifulitems.init.ModSilkTouchBamboo;
-//import net.minecraft.entity.EntityType;
+import net.minecraft.dispenser.OptionalDispenseBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -25,6 +24,7 @@ import javax.annotation.Nonnull;
 public final class ModEventSubscriber {
     private static final Logger LOGGER = LogManager.getLogger(Main.MODID + " ModEventSubscriber");
 
+    /*
     @SubscribeEvent
     public static void onRegisterItems(@Nonnull final RegistryEvent.Register<Item> event) {
         final IForgeRegistry<Item> registry = event.getRegistry();
@@ -44,7 +44,7 @@ public final class ModEventSubscriber {
                 });
 
         LOGGER.debug("Registered BlockItems");
-    }
+    }*/
 
     @SubscribeEvent
     public static void registerModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
