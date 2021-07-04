@@ -1,10 +1,38 @@
 # Plentiful Items Changelog
 
-----------------------------------------------------------------------------------------------------
 *Legend: N - new file, D - deprecated file, R - renamed file, X - removed file, M - minor change*<br>
 *Versions: X.x.x (major releases), x.X.x (minor releases), x.x.X (patches)*
 
-----------------------------------------------------------------------------------------------------
+## Version 1.0.0 (2021-07-04) &ndash; The Steel & Sustenance Update
+
+- Official release
+- Code cleanup
+- Added more internal documentation
+- Tweaked the mango texture
+- Tweaked formatting in the changelog and item index files
+- Removed an unused class
+- Henceforth, the `build.gradle` will be omitted from the list of modified files if only the mod's version is incremented
+
+**Modified files:**
+- build.gradle (M)
+- index.md (M)
+- src/main/java/.../Main.java
+- src/main/java/.../ModEventSubscriber.java
+- src/main/java/.../block/CrateBlock.java
+- src/main/java/.../block/ReinforcedCrateBlock.java
+- src/main/java/.../container/ReinforcedCrateContainer.java
+- src/main/java/.../container/ReinforcedCrateSlot.java
+- src/main/java/.../dispenser/CrateDispenseBehavior.java
+- src/main/java/.../init/ModBlocks.java (M)
+- src/main/java/.../init/ModContainerTypes.java (X)
+- src/main/java/.../init/ModItemGroups.java
+- src/main/java/.../init/ModJungleLeavesLoot.java (M)
+- src/main/java/.../init/ModTileEntityTypes.java (M)
+- src/main/java/.../tileentity/CrateTileEntity.java
+- src/main/java/.../tileentity/ReinforcedCrateTileEntity.java
+- src/main/java/.../world/OreGeneration.java
+- src/main/resources/assets/.../textures/item/mango.png (M)
+
 ## Version 0.6.0 (2021-07-03)
 
 - Block items are now registered in the `ModItems` class to allow for easier property manipulation
@@ -103,7 +131,6 @@
 - src/main/resources/data/.../recipes/scrambled_egg_from_smoking.json (X)
 - src/main/resources/data/.../recipes/steel_rivet.json (N)
 
-----------------------------------------------------------------------------------------------------
 ## Version 0.5.0 (2021-06-26)
 
 - Created a modified loot table for jungle leaves
@@ -150,7 +177,6 @@
 - src/main/resources/data/plentifulitems/loot_tables/blocks/reinforced_crate.json
 - src/main/resources/data/plentifulitems/loot_tables/gameplay/fishing/crustaceans.json
 
-----------------------------------------------------------------------------------------------------
 ## Version 0.4.0 (2021-05-25)
 
 - Reinforced crates are now crafted with 4 steel ingots and 1 crate
@@ -214,7 +240,6 @@
 - src/main/resources/data/.../recipes/steel_shovel_smithing.json (N)
 - src/main/resources/data/.../recipes/steel_sword_smithing.json (N)
 
-----------------------------------------------------------------------------------------------------
 ## Version 0.3.0 (2021-05-22)
 
 - Tweaked previous entries in the changelog
@@ -294,7 +319,6 @@
 - src/main/resources/data/plentifulitems/recipes/steel_ingot_from_blasting.json (N)
 - src/main/resources/data/plentifulitems/recipes/steel_ingot_from_steel_block.json (N)
 
-----------------------------------------------------------------------------------------------------
 ## Version 0.2.0 (2021-05-15)
 
 - Switched mappings to MCP
@@ -331,7 +355,6 @@
 - src/main/resources/data/.../recipes/crate.json (N)
 - src/main/resources/data/.../recipes/reinforced_crate.json (N)
 
-----------------------------------------------------------------------------------------------------
 ## Version 0.1.0 (2021-05-14)
 
 - Set up core files

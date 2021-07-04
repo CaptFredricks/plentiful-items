@@ -1,10 +1,8 @@
 package com.github.captfredricks.plentifulitems.init;
 
-/**
- * This class generates a custom loot table for jungle leaves.
- * @since 0.5.0
- */
-
+import com.google.gson.JsonObject;
+import java.util.*;
+import javax.annotation.Nonnull;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
@@ -17,10 +15,10 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.*;
-import javax.annotation.Nonnull;
-import com.google.gson.JsonObject;
-
+/**
+ * This class generates a custom loot table for jungle leaves.
+ * @since 0.5.0
+ */
 public final class ModJungleLeavesLoot extends LootModifier {
     private final List<Item> items = new ArrayList<>();
     private final List<Item> food_items = new ArrayList<>();

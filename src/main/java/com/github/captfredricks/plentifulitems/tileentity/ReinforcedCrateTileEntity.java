@@ -4,16 +4,13 @@ import com.github.captfredricks.plentifulitems.block.ReinforcedCrateBlock;
 import com.github.captfredricks.plentifulitems.container.ReinforcedCrateContainer;
 import com.github.captfredricks.plentifulitems.init.ModBlocks;
 import com.github.captfredricks.plentifulitems.init.ModTileEntityTypes;
-import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
@@ -28,56 +25,93 @@ import net.minecraft.util.text.TranslationTextComponent;
  * @since 0.5.0
  */
 public final class ReinforcedCrateTileEntity extends LockableLootTileEntity implements IInventory {
-    private static final int[] SLOTS = IntStream.range(0, 27).toArray();
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
     private int numPlayersUsing;
 
+    /**
+     * The class constructor.
+     */
     public ReinforcedCrateTileEntity() {
         super(ModTileEntityTypes.REINFORCED_CRATE.get());
     }
 
+    /**
+     * Read the block's NBT data.
+     * @param state the block state
+     * @param nbt the NBT data
+     */
     @Override
     public void read(@Nonnull final BlockState state, @Nonnull final CompoundNBT nbt) {
         super.read(state, nbt);
         this.loadFromNbt(nbt);
     }
 
+    /**
+     * Write the block's NBT data.
+     * @param nbt the NBT data
+     * @return CompoundNBT
+     */
     @Nonnull
     @Override
-    public CompoundNBT write(@Nonnull final CompoundNBT compound) {
-        super.write(compound);
-        return this.saveToNbt(compound);
+    public CompoundNBT write(@Nonnull final CompoundNBT nbt) {
+        super.write(nbt);
+        return this.saveToNbt(nbt);
     }
 
+    /**
+     * Fetch the block's inventory size.
+     * @return int
+     */
     @Override
     public int getSizeInventory() {
         return this.items.size();
     }
 
+    /**
+     * Getter method for the block's contents.
+     * @return NonNullList<ItemStack>
+     */
     @Nonnull
     @Override
     protected NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
+    /**
+     * Setter method for the block's contents.
+     * @param items the items stored in the block
+     */
     @Override
     protected void setItems(@Nonnull final NonNullList<ItemStack> items) {
         this.items = items;
     }
 
+    /**
+     * Get the translation-friendly name of the block.
+     * @return ITextComponent
+     */
     @Nonnull
     @Override
     protected ITextComponent getDefaultName() {
         return new TranslationTextComponent(ModBlocks.REINFORCED_CRATE.get().getTranslationKey());
     }
 
+    /**
+     * Create a menu container for the block.
+     * @param id the window id
+     * @param playerInventory the player's inventory
+     * @return Container
+     */
     @Nonnull
     @Override
-    protected Container createMenu(final int id, @Nonnull final PlayerInventory player) {
-        //return new ShulkerBoxContainer(id, player, this);
-        return new ReinforcedCrateContainer(id, player, this);
+    protected Container createMenu(final int id, @Nonnull final PlayerInventory playerInventory) {
+        return new ReinforcedCrateContainer(id, playerInventory, this);
     }
 
+    /**
+     * Called when the inventory is opened.
+     * @param player the player
+     */
     @Override
     public void openInventory(final PlayerEntity player) {
         if(!player.isSpectator()) {
@@ -96,6 +130,10 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
         }
     }
 
+    /**
+     * Called when the inventory is closed.
+     * @param player the player
+     */
     @Override
     public void closeInventory(final PlayerEntity player) {
         if(!player.isSpectator()) {
@@ -112,23 +150,38 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
         }
     }
 
-    public void loadFromNbt(final CompoundNBT compound) {
+    /**
+     * Load the contents from the NBT tag.
+     * @param nbt the NBT data
+     */
+    public void loadFromNbt(final CompoundNBT nbt) {
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 
-        if(!this.checkLootAndRead(compound) && compound.contains("Items", 9)) {
-            ItemStackHelper.loadAllItems(compound, this.items);
+        if(!this.checkLootAndRead(nbt) && nbt.contains("Items", 9)) {
+            ItemStackHelper.loadAllItems(nbt, this.items);
         }
 
     }
 
-    public CompoundNBT saveToNbt(final CompoundNBT compound) {
-        if(!this.checkLootAndWrite(compound)) {
-            ItemStackHelper.saveAllItems(compound, this.items, false);
+    /**
+     * Save the contents to an NBT tag.
+     * @param nbt the NBT data
+     * @return CompoundNBT
+     */
+    public CompoundNBT saveToNbt(final CompoundNBT nbt) {
+        if(!this.checkLootAndWrite(nbt)) {
+            ItemStackHelper.saveAllItems(nbt, this.items, false);
         }
 
-        return compound;
+        return nbt;
     }
 
+    /**
+     * Whether an item stack can be placed in the slot via automation.
+     * @param index the inventory index
+     * @param stack the item stack
+     * @return boolean
+     */
     @Override
     public boolean isItemValidForSlot(final int index, @Nonnull final ItemStack stack) {
         boolean isCrate = (Block.getBlockFromItem(stack.getItem()) instanceof ReinforcedCrateBlock);
@@ -136,25 +189,6 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
 
         return !isCrate && !isShulker;
     }
-    /*
-    @Nonnull
-    @Override
-    public int[] getSlotsForFace(@Nonnull final Direction side) {
-        return SLOTS;
-    }
-
-    @Override
-    public boolean canInsertItem(final int index, final ItemStack stack, @Nullable final Direction direction) {
-        boolean isCrate = (Block.getBlockFromItem(stack.getItem()) instanceof ReinforcedCrateBlock);
-        boolean isShulker = (Block.getBlockFromItem(stack.getItem()) instanceof ShulkerBoxBlock);
-
-        return !isCrate && !isShulker;
-    }
-
-    @Override
-    public boolean canExtractItem(final int index, @Nonnull final ItemStack stack, @Nonnull final Direction direction) {
-        return true;
-    }*/
 
     /**
      * Toggle the 'open' block state property.

@@ -28,12 +28,20 @@ public class CrateTileEntity extends LockableLootTileEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
     private int numPlayersUsing;
 
+    /**
+     * The class constructor.
+     */
     public CrateTileEntity() {
         super(ModTileEntityTypes.CRATE.get());
     }
 
+    /**
+     * Read the block's NBT data.
+     * @param state the block state
+     * @param nbt the NBT data
+     */
     @Override
-    public void read(final BlockState state, final CompoundNBT nbt) {
+    public void read(@Nonnull final BlockState state, @Nonnull final CompoundNBT nbt) {
         super.read(state, nbt);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 
@@ -42,46 +50,77 @@ public class CrateTileEntity extends LockableLootTileEntity {
         }
     }
 
+    /**
+     * Write the block's NBT data.
+     * @param nbt the NBT data
+     * @return CompoundNBT
+     */
     @Nonnull
     @Override
-    public CompoundNBT write(final CompoundNBT compound) {
-        super.write(compound);
+    public CompoundNBT write(@Nonnull final CompoundNBT nbt) {
+        super.write(nbt);
 
-        if(!this.checkLootAndWrite(compound)) {
-            ItemStackHelper.saveAllItems(compound, this.items);
+        if(!this.checkLootAndWrite(nbt)) {
+            ItemStackHelper.saveAllItems(nbt, this.items);
         }
 
-        return compound;
+        return nbt;
     }
 
+    /**
+     * Fetch the block's inventory size.
+     * @return int
+     */
     @Override
     public int getSizeInventory() {
         return this.items.size();
     }
 
+    /**
+     * Getter method for the block's contents.
+     * @return NonNullList<ItemStack>
+     */
     @Nonnull
     @Override
     protected NonNullList<ItemStack> getItems() {
         return this.items;
     }
 
+    /**
+     * Setter method for the block's contents.
+     * @param items the items stored in the block
+     */
     @Override
-    protected void setItems(final NonNullList<ItemStack> items) {
+    protected void setItems(@Nonnull final NonNullList<ItemStack> items) {
         this.items = items;
     }
 
+    /**
+     * Get the translation-friendly name of the block.
+     * @return ITextComponent
+     */
     @Nonnull
     @Override
     protected ITextComponent getDefaultName() {
         return new TranslationTextComponent(ModBlocks.CRATE.get().getTranslationKey());
     }
 
+    /**
+     * Create a menu container for the block.
+     * @param id the window id
+     * @param playerInventory the player's inventory
+     * @return Container
+     */
     @Nonnull
     @Override
-    protected Container createMenu(final int id, final PlayerInventory player) {
-        return ChestContainer.createGeneric9X3(id, player, this);
+    protected Container createMenu(final int id, @Nonnull final PlayerInventory playerInventory) {
+        return ChestContainer.createGeneric9X3(id, playerInventory, this);
     }
 
+    /**
+     * Called when the inventory is opened.
+     * @param player the player
+     */
     @Override
     public void openInventory(final PlayerEntity player) {
         if(!player.isSpectator()) {
@@ -100,6 +139,10 @@ public class CrateTileEntity extends LockableLootTileEntity {
         }
     }
 
+    /**
+     * Called when the inventory is closed.
+     * @param player the player
+     */
     @Override
     public void closeInventory(final PlayerEntity player) {
         if(!player.isSpectator()) {

@@ -2,14 +2,10 @@ package com.github.captfredricks.plentifulitems.init;
 
 import com.github.captfredricks.plentifulitems.Main;
 import com.github.captfredricks.plentifulitems.block.*;
-import com.github.captfredricks.plentifulitems.tileentity.ModShulkerBoxTileEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.item.DyeColor;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

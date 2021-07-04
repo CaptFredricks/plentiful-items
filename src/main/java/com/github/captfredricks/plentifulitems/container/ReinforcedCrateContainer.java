@@ -4,10 +4,8 @@ import javax.annotation.Nonnull;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.ShulkerBoxSlot;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -18,10 +16,12 @@ import net.minecraft.item.ItemStack;
 public final class ReinforcedCrateContainer extends Container {
     private final IInventory inventory;
 
-    public ReinforcedCrateContainer(final int id, final PlayerInventory playerInventory) {
-        this(id, playerInventory, new Inventory(27));
-    }
-
+    /**
+     * The class constructor.
+     * @param id the window id
+     * @param playerInventory the player's inventory
+     * @param inventory the container's inventory
+     */
     public ReinforcedCrateContainer(final int id, final PlayerInventory playerInventory, final IInventory inventory) {
         super(ContainerType.SHULKER_BOX, id);
         assertInventorySize(inventory, 27);
@@ -30,7 +30,6 @@ public final class ReinforcedCrateContainer extends Container {
 
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                //this.addSlot(new ShulkerBoxSlot(inventory, j + i * 9, 8 + j * 18, 18 + i * 18));
                 this.addSlot(new ReinforcedCrateSlot(inventory, j + i * 9, 8 + j * 18, 18 + i * 18));
             }
         }
@@ -47,11 +46,22 @@ public final class ReinforcedCrateContainer extends Container {
 
     }
 
+    /**
+     * Whether the player can use the container.
+     * @param player the player
+     * @return boolean
+     */
     @Override
     public boolean canInteractWith(@Nonnull final PlayerEntity player) {
         return this.inventory.isUsableByPlayer(player);
     }
 
+    /**
+     * Handles shift-clicking item stacks between inventories.
+     * @param player the player
+     * @param index the item slot index
+     * @return ItemStack
+     */
     @Nonnull
     @Override
     public ItemStack transferStackInSlot(@Nonnull final PlayerEntity player, final int index) {
@@ -78,6 +88,10 @@ public final class ReinforcedCrateContainer extends Container {
         return itemstack;
     }
 
+    /**
+     * Called when the container is closed.
+     * @param player the player
+     */
     @Override
     public void onContainerClosed(@Nonnull final PlayerEntity player) {
         super.onContainerClosed(player);

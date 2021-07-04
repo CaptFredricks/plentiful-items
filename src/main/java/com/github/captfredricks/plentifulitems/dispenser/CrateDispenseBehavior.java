@@ -11,7 +11,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
+/**
+ * This class defines dispenser behavior for crates.
+ * @since 0.6.0
+ */
 public final class CrateDispenseBehavior extends OptionalDispenseBehavior {
+    /**
+     * Dispense the specified stack.
+     * @param source the block source
+     * @param stack the item stack
+     * @return ItemStack
+     */
     @Nonnull
     @Override
     public ItemStack dispenseStack(@Nonnull final IBlockSource source, final ItemStack stack) {

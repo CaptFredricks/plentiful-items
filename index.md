@@ -1,6 +1,5 @@
 # Plentiful Items index
 
-----------------------------------------------------------------------------------------------------
 ## Blocks
 
 - **Block of steel**
@@ -19,8 +18,7 @@
   - item id: `reinforced_crate`
   - recipe: 1 crate + 4 steel ingots + 4 steel rivets
   - storage block that works like a shulker box
-
-----------------------------------------------------------------------------------------------------
+  
 ## Items
 
 - **Banana**
