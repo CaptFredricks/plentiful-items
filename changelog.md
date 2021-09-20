@@ -3,6 +3,55 @@
 *Legend: N - new file, D - deprecated file, R - renamed file, X - removed file, M - minor change*<br>
 *Versions: X.x.x (major releases), x.X.x (minor releases), x.x.X (patches)*
 
+## Version 1.0.1 (2021-09-19)
+
+- Removed lorem ipsum text in the mod's description
+- Added licensing information to the mod's description
+- Updated Forge version to `1.16.5-36.2.0`
+- Code cleanup in all block and item registry classes
+- Block state and model json files are now dynamically generated
+- Loot table json files are now dynamically generated
+- Recipe json files are now dynamically generated
+- Imported the Just Enough Items mod for easier recipe testing 
+- Added the `generated` directory to the `.gitignore` file
+
+**Known issues:**
+- Reinforced crates can be placed inside shulker boxes, essentially creating infinite storage
+
+**Modified files:**
+- .gitignore (M)
+- META-INF/MANIFEST.MF (N)
+- build.gradle
+- src/main/java/.../ModEventSubscriber.java (M)
+- src/main/java/.../block/BlockGen.java (X)
+- src/main/java/.../block/ModBuildingBlocks.java (N)
+- src/main/java/.../block/ModDecorationBlocks.java (N)
+- src/main/java/.../data/DataGenerators.java (N)
+- src/main/java/.../data/ModBlockStateProvider.java (N)
+- src/main/java/.../data/ModItemModelProvider.java (N)
+- src/main/java/.../data/ModLootTableProvider.java (N)
+- src/main/java/.../data/ModRecipeProvider.java (N)
+- src/main/java/.../init/ModBlocks.java
+- src/main/java/.../init/ModItems.java
+- src/main/java/.../item/ItemGenArmor.java (X)
+- src/main/java/.../item/ItemGenBlock.java (X)
+- src/main/java/.../item/ItemGenFood.java (X)
+- src/main/java/.../item/ItemGenMaterial.java (X)
+- src/main/java/.../item/ItemGenTool.java (X)
+- src/main/java/.../item/ItemGenWeapon.java (X)
+- src/main/java/.../item/ModArmor.java (N)
+- src/main/java/.../item/ModBlockItems.java (N)
+- src/main/java/.../item/ModFoods.java (N)
+- src/main/java/.../item/ModMaterials.java (N)
+- src/main/java/.../item/ModTools.java (N)
+- src/main/java/.../item/ModWeapons.java (N)
+- src/main/resources/META-INF/mods.toml
+- src/main/resources/assets/.../blockstates/* (X)
+- src/main/resources/assets/.../models/* (X)
+- src/main/resources/data/.../advancements/* (X)
+- src/main/resources/data/.../loot_tables/blocks/* (X)
+- src/main/resources/data/.../recipes/* (X)
+
 ## Version 1.0.0 (2021-07-04) &ndash; The Steel & Sustenance Update
 
 - Official release

@@ -1,19 +1,13 @@
 package com.github.captfredricks.plentifulitems;
 
-import com.github.captfredricks.plentifulitems.init.ModBlocks;
 import com.github.captfredricks.plentifulitems.init.ModFishingLoot;
-import com.github.captfredricks.plentifulitems.init.ModItemGroups;
 import com.github.captfredricks.plentifulitems.init.ModJungleLeavesLoot;
 import net.minecraft.dispenser.OptionalDispenseBehavior;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

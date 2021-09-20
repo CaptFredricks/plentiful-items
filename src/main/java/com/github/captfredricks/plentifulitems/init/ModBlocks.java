@@ -2,11 +2,7 @@ package com.github.captfredricks.plentifulitems.init;
 
 import com.github.captfredricks.plentifulitems.Main;
 import com.github.captfredricks.plentifulitems.block.*;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -19,14 +15,25 @@ public final class ModBlocks {
     // Create a deferred register for blocks
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Main.MODID);
 
-    // Register standard blocks
-    public static final RegistryObject<Block> HALITE = BlockGen.gen("halite", AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(2.0f, 2.5f).sound(SoundType.BASALT).harvestTool(ToolType.PICKAXE).harvestLevel(1).setRequiresTool());
-    public static final RegistryObject<Block> STEEL_BLOCK = BlockGen.gen("steel_block", AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(5.0f, 6.0f).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE).harvestLevel(2).setRequiresTool());
+    // Building blocks
+    public static final RegistryObject<Block> HALITE = reg("halite", ModBuildingBlocks.HALITE);
+    public static final RegistryObject<Block> STEEL_BLOCK = reg("steel_block", ModBuildingBlocks.STEEL_BLOCK);
 
-    // Register storage blocks
-    public static final RegistryObject<Block> CRATE = BlockGen.gen("crate", AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2.5f).sound(SoundType.WOOD));
-    public static final RegistryObject<Block> REINFORCED_CRATE = BlockGen.gen("reinforced_crate", AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(4.0f, 6.0f).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE).harvestLevel(2).setRequiresTool());
+    // Decoration blocks
+    public static final RegistryObject<Block> CRATE = reg("crate", ModDecorationBlocks.CRATE);
+    public static final RegistryObject<Block> REINFORCED_CRATE = reg("reinforced_crate", ModDecorationBlocks.REINFORCED_CRATE);
 
-    // Register group icon
+    // Group icon
     public static final RegistryObject<Block> BLOCKS_ICON = CRATE;
+
+    /**
+     * Register custom blocks.
+     * @since 1.0.1
+     * @param name the block's name
+     * @param block the block
+     * @return RegistryObject<Block>
+     */
+    private static RegistryObject<Block> reg(final String name, final Block block) {
+        return BLOCKS.register(name, () -> block);
+    }
 }

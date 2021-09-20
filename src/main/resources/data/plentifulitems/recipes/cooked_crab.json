@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "plentifulitems:crab"
-  },
-  "result": "plentifulitems:cooked_crab",
-  "experience": 0.35,
-  "cookingtime": 200
-}

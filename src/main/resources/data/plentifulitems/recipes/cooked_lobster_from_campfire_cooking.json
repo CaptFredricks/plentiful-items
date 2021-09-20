@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:campfire_cooking",
-  "ingredient": {
-    "item": "plentifulitems:lobster"
-  },
-  "result": "plentifulitems:cooked_lobster",
-  "experience": 0.35,
-  "cookingtime": 600
-}
