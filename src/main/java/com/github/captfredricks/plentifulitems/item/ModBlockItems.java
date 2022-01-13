@@ -13,8 +13,8 @@ public final class ModBlockItems {
     private static final ItemGroup item_group = ModItemGroups.PI_BLOCKS;
 
     // Items
-    public static final Item.Properties HALITE = new Item.Properties().group(item_group);
-    public static final Item.Properties STEEL_BLOCK = new Item.Properties().group(item_group);
-    public static final Item.Properties CRATE = new Item.Properties().group(item_group);
-    public static final Item.Properties REINFORCED_CRATE = new Item.Properties().maxStackSize(1).group(item_group);
+    public static final Item.Properties HALITE = new Item.Properties().tab(item_group);
+    public static final Item.Properties STEEL_BLOCK = new Item.Properties().tab(item_group);
+    public static final Item.Properties CRATE = new Item.Properties().tab(item_group);
+    public static final Item.Properties REINFORCED_CRATE = new Item.Properties().stacksTo(1).tab(item_group);
 }

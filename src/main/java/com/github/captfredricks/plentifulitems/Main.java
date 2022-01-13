@@ -26,29 +26,28 @@ public final class Main {
      * The class constructor.
      */
     public Main() {
+        // Get the mod event bus
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        // Add a listener for the setup method
+        bus.addListener(this::setup);
 
         // Register deferred registers
         ModBlocks.BLOCKS.register(bus);
         ModItems.ITEMS.register(bus);
-        //ModBlocksVanilla.BLOCKS.register(bus); // needs more testing
-        //ModItemsVanilla.ITEMS.register(bus); // needs more testing
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(bus);
-
-        // Add a listener for the setup method
-        bus.addListener(this::setup);
 
         // Add a listener for the ore generator class
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
     }
 
     /**
-     * Register events during the FMLCommonSetupEvent phase.
+     * Register events on the mod event bus.
      * @param event the event
      */
     private void setup(final FMLCommonSetupEvent event) {
         // Modify dispenser behavior for crates
-        DispenserBlock.registerDispenseBehavior(ModItems.CRATE.get(), new CrateDispenseBehavior());
-        DispenserBlock.registerDispenseBehavior(ModItems.REINFORCED_CRATE.get(), new CrateDispenseBehavior());
+        DispenserBlock.registerBehavior(ModItems.CRATE.get(), new CrateDispenseBehavior());
+        DispenserBlock.registerBehavior(ModItems.REINFORCED_CRATE.get(), new CrateDispenseBehavior());
     }
 }

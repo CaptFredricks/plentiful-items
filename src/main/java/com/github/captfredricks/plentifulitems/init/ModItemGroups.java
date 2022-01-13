@@ -34,8 +34,8 @@ public final class ModItemGroups {
          * Create an icon for the item group.
          * @return ItemStack
          */
-        @Override
         @Nonnull
-        public ItemStack createIcon() { return iconSupplier.get(); }
+        @Override
+        public ItemStack makeIcon() { return iconSupplier.get(); }
     }
 }

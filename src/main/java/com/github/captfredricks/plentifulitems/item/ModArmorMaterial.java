@@ -16,22 +16,22 @@ import net.minecraft.util.SoundEvent;
  */
 @MethodsReturnNonnullByDefault
 public enum ModArmorMaterial implements IArmorMaterial {
-    STEEL("steel", 504, new int[]{2, 5, 6, 2}, 14, "item.armor.equip_iron", () -> Ingredient.fromItems(ModItems.STEEL.get()), 1.0f, 0.0f);
+    STEEL("steel", 504, new int[]{2, 5, 6, 2}, 14, "item.armor.equip_iron", () -> Ingredient.of(ModItems.STEEL.get()), 1.0f, 0.0f);
 
     private static final int[] maxDamageArray = new int[]{13, 15, 16, 11};
     private final String name;
     private final int durability;
-    private final int[] damageReductionAmount;
+    private final int[] damageReduction;
     private final int enchantability;
     private final String soundEvent;
     private final Supplier<Ingredient> repairMaterial;
     private final float toughness;
     private final float knockbackResistance;
 
-    ModArmorMaterial(final String name, final int durability, final int[] damageReductionAmount, final int enchantability, final String soundEvent, final Supplier<Ingredient> repairMaterial, final float toughness, final float knockbackResistance) {
+    ModArmorMaterial(final String name, final int durability, final int[] damageReduction, final int enchantability, final String soundEvent, final Supplier<Ingredient> repairMaterial, final float toughness, final float knockbackResistance) {
         this.name = name;
         this.durability = durability;
-        this.damageReductionAmount = damageReductionAmount;
+        this.damageReduction = damageReduction;
         this.enchantability = enchantability;
         this.soundEvent = soundEvent;
         this.repairMaterial = repairMaterial;
@@ -40,27 +40,27 @@ public enum ModArmorMaterial implements IArmorMaterial {
     }
 
     @Override
-    public int getDurability(EquipmentSlotType slot) {
+    public int getDurabilityForSlot(EquipmentSlotType slot) {
         return maxDamageArray[slot.getIndex()] * this.durability;
     }
 
     @Override
-    public int getDamageReductionAmount(EquipmentSlotType slot) {
-        return this.damageReductionAmount[slot.getIndex()];
+    public int getDefenseForSlot(EquipmentSlotType slot) {
+        return this.damageReduction[slot.getIndex()];
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
     @Override
-    public SoundEvent getSoundEvent() {
+    public SoundEvent getEquipSound() {
         return new SoundEvent(new ResourceLocation(soundEvent));
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return this.repairMaterial.get();
     }
 

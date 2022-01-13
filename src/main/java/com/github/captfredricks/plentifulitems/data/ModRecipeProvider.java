@@ -25,122 +25,122 @@ public final class ModRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
+    protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
         // GROUP: BUILDING BLOCKS
 
         // Steel block
-        ShapedRecipeBuilder.shapedRecipe(ModBlocks.STEEL_BLOCK.get())
-                .key('#', ModItems.STEEL_INGOT.get())
-                .patternLine("###")
-                .patternLine("###")
-                .patternLine("###")
-                .addCriterion("has_steel_ingot", hasItem(ModItems.STEEL_INGOT.get()))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.STEEL_BLOCK.get())
+                .define('#', ModItems.STEEL_INGOT.get())
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_steel_ingot", has(ModItems.STEEL_INGOT.get()))
+                .save(consumer);
 
         // GROUP: DECORATION BLOCKS
 
         // Crate
-        ShapedRecipeBuilder.shapedRecipe(ModBlocks.CRATE.get())
-                .key('P', ItemTags.PLANKS)
-                .key('S', ItemTags.WOODEN_SLABS)
-                .patternLine("PSP")
-                .patternLine("S S")
-                .patternLine("PSP")
-                .addCriterion("has_planks", hasItem(ItemTags.PLANKS))
-                .addCriterion("has_wood_slab", hasItem(ItemTags.WOODEN_SLABS))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.CRATE.get())
+                .define('P', ItemTags.PLANKS)
+                .define('S', ItemTags.WOODEN_SLABS)
+                .pattern("PSP")
+                .pattern("S S")
+                .pattern("PSP")
+                .unlockedBy("has_planks", has(ItemTags.PLANKS))
+                .unlockedBy("has_wood_slab", has(ItemTags.WOODEN_SLABS))
+                .save(consumer);
 
         // Reinforced crate
-        ShapedRecipeBuilder.shapedRecipe(ModBlocks.REINFORCED_CRATE.get())
-                .key('C', ModItems.CRATE.get())
-                .key('I', ModItems.STEEL_INGOT.get())
-                .key('R', ModItems.STEEL_RIVET.get())
-                .patternLine("IRI")
-                .patternLine("RCR")
-                .patternLine("IRI")
-                .addCriterion("has_crate", hasItem(ModItems.CRATE.get()))
-                .addCriterion("has_steel_ingot", hasItem(ModItems.STEEL_INGOT.get()))
-                .addCriterion("has_steel_rivet", hasItem(ModItems.STEEL_RIVET.get()))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(ModBlocks.REINFORCED_CRATE.get())
+                .define('C', ModItems.CRATE.get())
+                .define('I', ModItems.STEEL_INGOT.get())
+                .define('R', ModItems.STEEL_RIVET.get())
+                .pattern("IRI")
+                .pattern("RCR")
+                .pattern("IRI")
+                .unlockedBy("has_crate", has(ModItems.CRATE.get()))
+                .unlockedBy("has_steel_ingot", has(ModItems.STEEL_INGOT.get()))
+                .unlockedBy("has_steel_rivet", has(ModItems.STEEL_RIVET.get()))
+                .save(consumer);
 
         // GROUP: FOODS
 
         // Butter
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.BUTTER.get(), 3)
-                .addIngredient(Items.MILK_BUCKET)
-                .addIngredient(ModItems.SALT.get())
-                .addCriterion("has_milk", hasItem(Items.MILK_BUCKET))
-                .addCriterion("has_salt", hasItem(ModItems.SALT.get()))
-                .build(consumer);
+        ShapelessRecipeBuilder.shapeless(ModItems.BUTTER.get(), 3)
+                .requires(Items.MILK_BUCKET)
+                .requires(ModItems.SALT.get())
+                .unlockedBy("has_milk", has(Items.MILK_BUCKET))
+                .unlockedBy("has_salt", has(ModItems.SALT.get()))
+                .save(consumer);
 
         // Cheese
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.CHEESE.get(), 2)
-                .addIngredient(Items.MILK_BUCKET, 2)
-                .addIngredient(ModItems.SALT.get(), 2)
-                .addCriterion("has_milk", hasItem(Items.MILK_BUCKET))
-                .addCriterion("has_salt", hasItem(ModItems.SALT.get()))
-                .build(consumer);
+        ShapelessRecipeBuilder.shapeless(ModItems.CHEESE.get(), 2)
+                .requires(Items.MILK_BUCKET, 2)
+                .requires(ModItems.SALT.get(), 2)
+                .unlockedBy("has_milk", has(Items.MILK_BUCKET))
+                .unlockedBy("has_salt", has(ModItems.SALT.get()))
+                .save(consumer);
 
         // Scrambled egg
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.SCRAMBLED_EGG.get())
-                .addIngredient(Items.EGG, 2)
-                .addIngredient(ModItems.BUTTER.get())
-                .addCriterion("has_egg", hasItem(Items.EGG))
-                .addCriterion("has_butter", hasItem(ModItems.BUTTER.get()))
-                .build(consumer);
+        ShapelessRecipeBuilder.shapeless(ModItems.SCRAMBLED_EGG.get())
+                .requires(Items.EGG, 2)
+                .requires(ModItems.BUTTER.get())
+                .unlockedBy("has_egg", has(Items.EGG))
+                .unlockedBy("has_butter", has(ModItems.BUTTER.get()))
+                .save(consumer);
 
         // Coconut cream pie
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.COCONUT_CREAM_PIE.get())
-                .addIngredient(ModItems.COCONUT.get())
-                .addIngredient(Items.MILK_BUCKET)
-                .addIngredient(Items.SUGAR)
-                .addCriterion("has_coconut", hasItem(ModItems.COCONUT.get()))
-                .build(consumer);
+        ShapelessRecipeBuilder.shapeless(ModItems.COCONUT_CREAM_PIE.get())
+                .requires(ModItems.COCONUT.get())
+                .requires(Items.MILK_BUCKET)
+                .requires(Items.SUGAR)
+                .unlockedBy("has_coconut", has(ModItems.COCONUT.get()))
+                .save(consumer);
 
         // Cooked crab (furnace)
-        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModItems.CRAB.get()), ModItems.COOKED_CRAB.get(), 0.35f, 200)
-                .addCriterion("has_crab", hasItem(ModItems.CRAB.get()))
-                .build(consumer);
+        CookingRecipeBuilder.smelting(Ingredient.of(ModItems.CRAB.get()), ModItems.COOKED_CRAB.get(), 0.35f, 200)
+                .unlockedBy("has_crab", has(ModItems.CRAB.get()))
+                .save(consumer);
 
         // Cooked shrimp (furnace)
-        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModItems.SHRIMP.get()), ModItems.COOKED_SHRIMP.get(), 0.35f, 200)
-                .addCriterion("has_shrimp", hasItem(ModItems.SHRIMP.get()))
-                .build(consumer);
+        CookingRecipeBuilder.smelting(Ingredient.of(ModItems.SHRIMP.get()), ModItems.COOKED_SHRIMP.get(), 0.35f, 200)
+                .unlockedBy("has_shrimp", has(ModItems.SHRIMP.get()))
+                .save(consumer);
 
         // Cooked lobster (furnace)
-        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModItems.LOBSTER.get()), ModItems.COOKED_LOBSTER.get(), 0.35f, 200)
-                .addCriterion("has_lobster", hasItem(ModItems.LOBSTER.get()))
-                .build(consumer);
+        CookingRecipeBuilder.smelting(Ingredient.of(ModItems.LOBSTER.get()), ModItems.COOKED_LOBSTER.get(), 0.35f, 200)
+                .unlockedBy("has_lobster", has(ModItems.LOBSTER.get()))
+                .save(consumer);
 
         // Cooking recipes (smoker and campfire)
-        cookingRecipes(consumer, "smoking", IRecipeSerializer.SMOKING, 100);
-        cookingRecipes(consumer, "campfire_cooking", IRecipeSerializer.CAMPFIRE_COOKING, 600);
+        cookingRecipes(consumer, "smoking", IRecipeSerializer.SMOKING_RECIPE, 100);
+        cookingRecipes(consumer, "campfire_cooking", IRecipeSerializer.CAMPFIRE_COOKING_RECIPE, 600);
 
         // GROUP: MATERIALS
 
         // Steel ingot
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.STEEL_INGOT.get(), 9)
-                .addIngredient(ModBlocks.STEEL_BLOCK.get())
-                .addCriterion("has_steel_block", hasItem(ModBlocks.STEEL_BLOCK.get()))
-                .build(consumer, save("steel_ingot_from_steel_block"));
+        ShapelessRecipeBuilder.shapeless(ModItems.STEEL_INGOT.get(), 9)
+                .requires(ModBlocks.STEEL_BLOCK.get())
+                .unlockedBy("has_steel_block", has(ModBlocks.STEEL_BLOCK.get()))
+                .save(consumer, save("steel_ingot_from_steel_block"));
 
         // Steel ingot (furnace)
-        CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Items.IRON_INGOT), ModItems.STEEL_INGOT.get(), 0.7f, 200)
-                .addCriterion("has_iron_ingot", hasItem(Items.IRON_INGOT))
-                .build(consumer);
+        CookingRecipeBuilder.smelting(Ingredient.of(Items.IRON_INGOT), ModItems.STEEL_INGOT.get(), 0.7f, 200)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(consumer);
 
         // Steel ingot (blast furnace)
-        CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(Items.IRON_INGOT), ModItems.STEEL_INGOT.get(), 0.7f, 100)
-                .addCriterion("has_iron_ingot", hasItem(Items.IRON_INGOT))
-                .build(consumer, save("steel_ingot_from_blasting"));
+        CookingRecipeBuilder.blasting(Ingredient.of(Items.IRON_INGOT), ModItems.STEEL_INGOT.get(), 0.7f, 100)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(consumer, save("steel_ingot_from_blasting"));
 
         // Steel rivet
-        ShapedRecipeBuilder.shapedRecipe(ModItems.STEEL_RIVET.get(), 4)
-                .key('#', ModItems.STEEL_INGOT.get())
-                .patternLine("##")
-                .patternLine("##")
-                .addCriterion("has_steel_ingot", hasItem(ModItems.STEEL_INGOT.get()))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(ModItems.STEEL_RIVET.get(), 4)
+                .define('#', ModItems.STEEL_INGOT.get())
+                .pattern("##")
+                .pattern("##")
+                .unlockedBy("has_steel_ingot", has(ModItems.STEEL_INGOT.get()))
+                .save(consumer);
 
         // GROUP: TOOLS
 
@@ -168,19 +168,19 @@ public final class ModRecipeProvider extends RecipeProvider {
      */
     private static void cookingRecipes(final Consumer<IFinishedRecipe> consumer, final String consumer_type, final CookingRecipeSerializer<?> cooking_method, final int cooking_time) {
         // Crab
-        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ModItems.CRAB.get()), ModItems.COOKED_CRAB.get(), 0.35f, cooking_time, cooking_method)
-                .addCriterion("has_crab", hasItem(ModItems.CRAB.get()))
-                .build(consumer, save("cooked_crab_from_" + consumer_type));
+        CookingRecipeBuilder.cooking(Ingredient.of(ModItems.CRAB.get()), ModItems.COOKED_CRAB.get(), 0.35f, cooking_time, cooking_method)
+                .unlockedBy("has_crab", has(ModItems.CRAB.get()))
+                .save(consumer, save("cooked_crab_from_" + consumer_type));
 
         // Shrimp
-        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ModItems.SHRIMP.get()), ModItems.COOKED_SHRIMP.get(), 0.35f, cooking_time, cooking_method)
-                .addCriterion("has_shrimp", hasItem(ModItems.SHRIMP.get()))
-                .build(consumer, save("cooked_shrimp_from_" + consumer_type));
+        CookingRecipeBuilder.cooking(Ingredient.of(ModItems.SHRIMP.get()), ModItems.COOKED_SHRIMP.get(), 0.35f, cooking_time, cooking_method)
+                .unlockedBy("has_shrimp", has(ModItems.SHRIMP.get()))
+                .save(consumer, save("cooked_shrimp_from_" + consumer_type));
 
         // Lobster
-        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ModItems.LOBSTER.get()), ModItems.COOKED_LOBSTER.get(), 0.35f, cooking_time, cooking_method)
-                .addCriterion("has_lobster", hasItem(ModItems.LOBSTER.get()))
-                .build(consumer, save("cooked_lobster_from_" + consumer_type));
+        CookingRecipeBuilder.cooking(Ingredient.of(ModItems.LOBSTER.get()), ModItems.COOKED_LOBSTER.get(), 0.35f, cooking_time, cooking_method)
+                .unlockedBy("has_lobster", has(ModItems.LOBSTER.get()))
+                .save(consumer, save("cooked_lobster_from_" + consumer_type));
     }
 
     /**
@@ -191,9 +191,9 @@ public final class ModRecipeProvider extends RecipeProvider {
      * @param output the item to be output
      */
     private static void steelSmithingRecipe(final Consumer<IFinishedRecipe> consumer, final Item base, final Item output) {
-        SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(base), Ingredient.fromItems(ModItems.STEEL_INGOT.get()), output)
-                .addCriterion("has_steel_ingot", hasItem(ModItems.STEEL_INGOT.get()))
-                .build(consumer, save(output.asItem() + "_smithing"));
+        SmithingRecipeBuilder.smithing(Ingredient.of(base), Ingredient.of(ModItems.STEEL_INGOT.get()), output)
+                .unlocks("has_steel_ingot", has(ModItems.STEEL_INGOT.get()))
+                .save(consumer, save(output.asItem() + "_smithing"));
     }
 
     /**

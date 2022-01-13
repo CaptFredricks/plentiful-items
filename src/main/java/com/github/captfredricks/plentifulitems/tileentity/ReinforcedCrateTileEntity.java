@@ -41,8 +41,8 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      * @param nbt the NBT data
      */
     @Override
-    public void read(@Nonnull final BlockState state, @Nonnull final CompoundNBT nbt) {
-        super.read(state, nbt);
+    public void load(@Nonnull final BlockState state, @Nonnull final CompoundNBT nbt) {
+        super.load(state, nbt);
         this.loadFromNbt(nbt);
     }
 
@@ -53,17 +53,17 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      */
     @Nonnull
     @Override
-    public CompoundNBT write(@Nonnull final CompoundNBT nbt) {
-        super.write(nbt);
+    public CompoundNBT save(@Nonnull final CompoundNBT nbt) {
+        super.save(nbt);
         return this.saveToNbt(nbt);
     }
 
     /**
-     * Fetch the block's inventory size.
+     * Fetch the size of the block's inventory.
      * @return int
      */
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return this.items.size();
     }
 
@@ -93,7 +93,7 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
     @Nonnull
     @Override
     protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent(ModBlocks.REINFORCED_CRATE.get().getTranslationKey());
+        return new TranslationTextComponent(ModBlocks.REINFORCED_CRATE.get().getDescriptionId());
     }
 
     /**
@@ -113,18 +113,18 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      * @param player the player
      */
     @Override
-    public void openInventory(final PlayerEntity player) {
+    public void startOpen(final PlayerEntity player) {
         if(!player.isSpectator()) {
             if(this.numPlayersUsing < 0) this.numPlayersUsing = 0;
 
             ++this.numPlayersUsing;
-            this.world.addBlockEvent(this.pos, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
+            this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
 
             BlockState blockstate = this.getBlockState();
-            boolean flag = blockstate.get(ReinforcedCrateBlock.OPEN);
+            boolean flag = blockstate.getValue(ReinforcedCrateBlock.OPEN);
 
             if(!flag && this.numPlayersUsing == 1) {
-                this.playSound(SoundEvents.BLOCK_BARREL_OPEN);
+                this.playSound(SoundEvents.BARREL_OPEN);
                 this.setOpenProperty(blockstate, true);
             }
         }
@@ -135,16 +135,16 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      * @param player the player
      */
     @Override
-    public void closeInventory(final PlayerEntity player) {
+    public void stopOpen(final PlayerEntity player) {
         if(!player.isSpectator()) {
             --this.numPlayersUsing;
-            this.world.addBlockEvent(this.pos, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
+            this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
 
             BlockState blockstate = this.getBlockState();
-            boolean flag = blockstate.get(ReinforcedCrateBlock.OPEN);
+            boolean flag = blockstate.getValue(ReinforcedCrateBlock.OPEN);
 
             if(flag && this.numPlayersUsing <= 0) {
-                this.playSound(SoundEvents.BLOCK_BARREL_CLOSE);
+                this.playSound(SoundEvents.BARREL_CLOSE);
                 this.setOpenProperty(blockstate, false);
             }
         }
@@ -155,9 +155,9 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      * @param nbt the NBT data
      */
     public void loadFromNbt(final CompoundNBT nbt) {
-        this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 
-        if(!this.checkLootAndRead(nbt) && nbt.contains("Items", 9)) {
+        if(!this.tryLoadLootTable(nbt) && nbt.contains("Items", 9)) {
             ItemStackHelper.loadAllItems(nbt, this.items);
         }
 
@@ -169,7 +169,7 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      * @return CompoundNBT
      */
     public CompoundNBT saveToNbt(final CompoundNBT nbt) {
-        if(!this.checkLootAndWrite(nbt)) {
+        if(!this.trySaveLootTable(nbt)) {
             ItemStackHelper.saveAllItems(nbt, this.items, false);
         }
 
@@ -183,9 +183,9 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      * @return boolean
      */
     @Override
-    public boolean isItemValidForSlot(final int index, @Nonnull final ItemStack stack) {
-        boolean isCrate = (Block.getBlockFromItem(stack.getItem()) instanceof ReinforcedCrateBlock);
-        boolean isShulker = (Block.getBlockFromItem(stack.getItem()) instanceof ShulkerBoxBlock);
+    public boolean canPlaceItem(final int index, @Nonnull final ItemStack stack) {
+        boolean isCrate = (Block.byItem(stack.getItem()) instanceof ReinforcedCrateBlock);
+        boolean isShulker = (Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock);
 
         return !isCrate && !isShulker;
     }
@@ -196,7 +196,7 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      * @param open the prop to toggle
      */
     private void setOpenProperty(final BlockState state, final boolean open) {
-        this.world.setBlockState(this.getPos(), state.with(ReinforcedCrateBlock.OPEN, open), 3);
+        this.level.setBlock(this.getBlockPos(), state.setValue(ReinforcedCrateBlock.OPEN, open), 3);
     }
 
     /**
@@ -204,6 +204,6 @@ public final class ReinforcedCrateTileEntity extends LockableLootTileEntity impl
      * @param sound the sound event to play
      */
     private void playSound(final SoundEvent sound) {
-        this.world.playSound((PlayerEntity)null, this.pos, sound, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+        this.level.playSound((PlayerEntity)null, this.worldPosition, sound, SoundCategory.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
     }
 }

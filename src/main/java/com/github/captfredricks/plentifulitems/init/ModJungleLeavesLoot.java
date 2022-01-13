@@ -59,13 +59,13 @@ public final class ModJungleLeavesLoot extends LootModifier {
         double[] probs = new double[]{0.005, 0.02, 0.025}; // No tool
 
         // Get the current tool
-        ItemStack ctx_tool = context.get(LootParameters.TOOL);
+        ItemStack ctx_tool = context.getParamOrNull(LootParameters.TOOL);
 
         int ctx_enchant_lvl; // Current enchantment level
 
         if(ctx_tool != null) {
             // Get the current enchantment level
-            ctx_enchant_lvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, ctx_tool);
+            ctx_enchant_lvl = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, ctx_tool);
 
             // Loop through the probabilities
             for(int i = 0; i < probabilities.length; i++) {
@@ -134,11 +134,11 @@ public final class ModJungleLeavesLoot extends LootModifier {
             Map<String, Item> items = new HashMap<>();
 
             // Add all of the items to the list
-            items.put("sapling", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "sapling"))));
-            items.put("stick", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "stick"))));
-            items.put("banana", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "banana"))));
-            items.put("mango", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "mango"))));
-            items.put("coconut", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "coconut"))));
+            items.put("sapling", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.convertToString(object, "sapling"))));
+            items.put("stick", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.convertToString(object, "stick"))));
+            items.put("banana", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.convertToString(object, "banana"))));
+            items.put("mango", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.convertToString(object, "mango"))));
+            items.put("coconut", ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.convertToString(object, "coconut"))));
 
             return new ModJungleLeavesLoot(conditionsIn, items);
         }

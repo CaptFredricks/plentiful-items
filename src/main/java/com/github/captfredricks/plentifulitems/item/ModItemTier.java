@@ -12,7 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
  */
 @MethodsReturnNonnullByDefault
 public enum ModItemTier implements IItemTier {
-    STEEL(504, 7.0f, 2.0f, 2, 14, () -> Ingredient.fromItems(ModItems.STEEL.get()));
+    STEEL(504, 7.0f, 2.0f, 2, 14, () -> Ingredient.of(ModItems.STEEL.get()));
 
     private final int durability;
     private final float efficiency;
@@ -31,32 +31,32 @@ public enum ModItemTier implements IItemTier {
     }
 
     @Override
-    public int getMaxUses() {
+    public int getUses() {
         return this.durability;
     }
 
     @Override
-    public float getEfficiency() {
+    public float getSpeed() {
         return this.efficiency;
     }
 
     @Override
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
         return this.attackDamage;
     }
 
     @Override
-    public int getHarvestLevel() {
+    public int getLevel() {
         return this.harvestLevel;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return this.repairMaterial.get();
     }
 }

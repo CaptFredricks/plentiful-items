@@ -14,5 +14,5 @@ public final class ModWeapons {
     private static final ItemGroup item_group = ModItemGroups.PI_COMBAT;
 
     // Items
-    public static final Item STEEL_SWORD = new SwordItem(ModItemTier.STEEL, 3, -2.4f, new Item.Properties().group(item_group));
+    public static final Item STEEL_SWORD = new SwordItem(ModItemTier.STEEL, 3, -2.4f, new Item.Properties().tab(item_group));
 }

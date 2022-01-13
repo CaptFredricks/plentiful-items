@@ -15,8 +15,8 @@ public final class ModArmor {
     private static final ItemGroup item_group = ModItemGroups.PI_COMBAT;
 
     // Items
-    public static final Item STEEL_HELMET = new ArmorItem(ModArmorMaterial.STEEL, EquipmentSlotType.HEAD, new Item.Properties().group(item_group));
-    public static final Item STEEL_CHESTPLATE = new ArmorItem(ModArmorMaterial.STEEL, EquipmentSlotType.CHEST, new Item.Properties().group(item_group));
-    public static final Item STEEL_LEGGINGS = new ArmorItem(ModArmorMaterial.STEEL, EquipmentSlotType.LEGS, new Item.Properties().group(item_group));
-    public static final Item STEEL_BOOTS = new ArmorItem(ModArmorMaterial.STEEL, EquipmentSlotType.FEET, new Item.Properties().group(item_group));
+    public static final Item STEEL_HELMET = new ArmorItem(ModArmorMaterial.STEEL, EquipmentSlotType.HEAD, new Item.Properties().tab(item_group));
+    public static final Item STEEL_CHESTPLATE = new ArmorItem(ModArmorMaterial.STEEL, EquipmentSlotType.CHEST, new Item.Properties().tab(item_group));
+    public static final Item STEEL_LEGGINGS = new ArmorItem(ModArmorMaterial.STEEL, EquipmentSlotType.LEGS, new Item.Properties().tab(item_group));
+    public static final Item STEEL_BOOTS = new ArmorItem(ModArmorMaterial.STEEL, EquipmentSlotType.FEET, new Item.Properties().tab(item_group));
 }

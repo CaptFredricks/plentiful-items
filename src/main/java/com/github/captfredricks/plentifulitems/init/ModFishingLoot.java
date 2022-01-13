@@ -34,12 +34,13 @@ public final class ModFishingLoot extends LootModifier {
     @Override
     public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
         try {
-            Set<LootTable> set = (Set<LootTable>) LOOT_FIELD.get(context);
+            Set<LootTable> set = (Set<LootTable>)LOOT_FIELD.get(context);
 
             if(set.isEmpty() && context.getRandom().nextFloat() <= weight) {
                 List<ItemStack> loot = Lists.newArrayList();
 
-                table.func_216154_a(loot::add, context);
+                table.createItemStack(loot::add, context);
+                        //.func_216154_a(loot::add, context);
 
                 // Return the custom loot
                 return loot;
@@ -55,9 +56,10 @@ public final class ModFishingLoot extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<ModFishingLoot> {
         @Override
         public ModFishingLoot read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
-            String loot_table = JSONUtils.getString(object, "table");
-            TableLootEntry table = (TableLootEntry)TableLootEntry.builder(new ResourceLocation(loot_table)).build();
-            float weight = JSONUtils.getFloat(object,"weight");
+            String loot_table = JSONUtils.convertToString(object, "table");
+            TableLootEntry table = (TableLootEntry)TableLootEntry.lootTableReference(new ResourceLocation(loot_table)).build();
+                    //.builder(new ResourceLocation(loot_table)).build();
+            float weight = JSONUtils.convertToFloat(object,"weight");
 
             return new ModFishingLoot(conditionsIn, table, weight);
         }

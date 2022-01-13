@@ -27,10 +27,10 @@ public final class ModBlockStateProvider extends BlockStateProvider {
         // Decoration blocks
         ModelFile crate = models().cubeAll("crate", modLoc("block/crate"));
         ModelFile crate_open = models().cubeBottomTop("crate_open", modLoc("block/crate"), modLoc("block/crate"), modLoc("block/crate_open"));
-        directionalBlock(ModBlocks.CRATE.get(), state -> state.get(CrateBlock.OPEN) ? crate_open : crate);
+        directionalBlock(ModBlocks.CRATE.get(), state -> state.getValue(CrateBlock.OPEN) ? crate_open : crate);
 
         ModelFile reinforced_crate = models().cubeAll("reinforced_crate", modLoc("block/reinforced_crate"));
         ModelFile reinforced_crate_open = models().cubeBottomTop("reinforced_crate_open", modLoc("block/reinforced_crate"), modLoc("block/reinforced_crate"), modLoc("block/reinforced_crate_open"));
-        directionalBlock(ModBlocks.REINFORCED_CRATE.get(), state -> state.get(ReinforcedCrateBlock.OPEN) ? reinforced_crate_open : reinforced_crate);
+        directionalBlock(ModBlocks.REINFORCED_CRATE.get(), state -> state.getValue(ReinforcedCrateBlock.OPEN) ? reinforced_crate_open : reinforced_crate);
     }
 }

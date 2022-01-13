@@ -1,7 +1,53 @@
 # Plentiful Items Changelog
 
 *Legend: N - new file, D - deprecated file, R - renamed file, X - removed file, M - minor change*<br>
-*Versions: X.x.x (major releases), x.X.x (minor releases), x.x.X (patches)*
+*Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases), x.x.x.X (snapshots/patches)*
+
+## Version 1.0.2 (2022-01-12)
+
+- Added more internal documentation
+- Updated Forge version to `1.16.5-36.2.20`
+- Created a `ClientEvents` class to handle client-side events
+- Removed several unused files
+- Switched back to the official Mojang mappings
+- Switched MCP methods to the official ones in all files
+- Renamed a method in the `ModFoods` class
+
+**Modified files:**
+- build.gradle
+- src/main/java/.../Main.java (M)
+- src/main/java/.../block/CrateBlock.java
+- src/main/java/.../block/ModBuildingBlocks.java
+- src/main/java/.../block/ModDecorationBlocks.java
+- src/main/java/.../block/ModShulkerBoxBlock.java (X)
+- src/main/java/.../block/ReinforcedCrateBlock.java
+- src/main/java/.../client/event/ClientEvents.java (N)
+- src/main/java/.../container/ModShulkerBoxContainer.java (X)
+- src/main/java/.../container/ModShulkerBoxSlot.java (X)
+- src/main/java/.../container/ReinforcedCrateContainer.java
+- src/main/java/.../container/ReinforcedCrateSlot.java
+- src/main/java/.../data/ModBlockStateProvider.java
+- src/main/java/.../data/ModLootTableProvider.java
+- src/main/java/.../data/ModRecipeProvider.java
+- src/main/java/.../dispenser/CrateDispenseBehavior.java
+- src/main/java/.../init/ModBlocksVanilla.java (X)
+- src/main/java/.../init/ModFishingLoot.java
+- src/main/java/.../init/ModItemGroups.java
+- src/main/java/.../init/ModItemsVanilla.java (X)
+- src/main/java/.../init/ModJungleLeavesLoot.java
+- src/main/java/.../init/ModTileEntityTypes.java
+- src/main/java/.../item/ModArmor.java
+- src/main/java/.../item/ModArmorMaterial.java
+- src/main/java/.../item/ModBlockItems.java
+- src/main/java/.../item/ModFoods.java
+- src/main/java/.../item/ModItemTier.java
+- src/main/java/.../item/ModMaterials.java
+- src/main/java/.../item/ModTools.java
+- src/main/java/.../item/ModWeapons.java
+- src/main/java/.../tileentity/CrateTileEntity.java
+- src/main/java/.../tileentity/ModShulkerBoxTileEntity.java (X)
+- src/main/java/.../tileentity/ReinforcedCrateTileEntity.java
+- src/main/java/.../world/OreGeneration.java
 
 ## Version 1.0.1 (2021-09-19)
 
@@ -12,7 +58,7 @@
 - Block state and model json files are now dynamically generated
 - Loot table json files are now dynamically generated
 - Recipe json files are now dynamically generated
-- Imported the Just Enough Items mod for easier recipe testing 
+- Imported the Just Enough Items mod for easier recipe testing
 - Added the `generated` directory to the `.gitignore` file
 
 **Known issues:**
@@ -90,7 +136,7 @@
 - Reinforced crates can not have shulker boxes or other reinforced crates placed inside them
   - Shulker boxes still allow reinforced crates to be placed inside them (fix coming later)
 - Halite now generates naturally in the world between y-0 and y-63
-- Scrambled eggs are now made by crafting instead of smelting (recipe: 2 eggs and 1 butter)
+- Scrambled eggs are now made by crafting instead of smelting/cooking (recipe: 2 eggs and 1 butter)
 - Custom recipes now unlock properly in the recipe book
 - Added new item:
   - `steel_rivet` &ndash; used to craft reinforced crates

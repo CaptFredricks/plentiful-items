@@ -12,8 +12,8 @@ public final class ModTools {
     private static final ItemGroup item_group = ModItemGroups.PI_TOOLS;
 
     // Items
-    public static final Item STEEL_SHOVEL = new ShovelItem(ModItemTier.STEEL, 2.0f, -3.0f, new Item.Properties().group(item_group));
-    public static final Item STEEL_PICKAXE = new PickaxeItem(ModItemTier.STEEL, 1, -2.8f, new Item.Properties().group(item_group));
-    public static final Item STEEL_AXE = new AxeItem(ModItemTier.STEEL, 6.0f, -3.0f, new Item.Properties().group(item_group));
-    public static final Item STEEL_HOE = new HoeItem(ModItemTier.STEEL, -2, -0.5f, new Item.Properties().group(item_group));
+    public static final Item STEEL_SHOVEL = new ShovelItem(ModItemTier.STEEL, 2.0f, -3.0f, new Item.Properties().tab(item_group));
+    public static final Item STEEL_PICKAXE = new PickaxeItem(ModItemTier.STEEL, 1, -2.8f, new Item.Properties().tab(item_group));
+    public static final Item STEEL_AXE = new AxeItem(ModItemTier.STEEL, 6.0f, -3.0f, new Item.Properties().tab(item_group));
+    public static final Item STEEL_HOE = new HoeItem(ModItemTier.STEEL, -2, -0.5f, new Item.Properties().tab(item_group));
 }

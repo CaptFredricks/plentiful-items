@@ -24,15 +24,15 @@ public final class CrateDispenseBehavior extends OptionalDispenseBehavior {
      */
     @Nonnull
     @Override
-    public ItemStack dispenseStack(@Nonnull final IBlockSource source, final ItemStack stack) {
-        this.setSuccessful(false);
+    public ItemStack execute(@Nonnull final IBlockSource source, final ItemStack stack) {
+        this.setSuccess(false);
         Item item = stack.getItem();
 
         if(item instanceof BlockItem) {
-            Direction direction = source.getBlockState().get(DispenserBlock.FACING);
-            BlockPos blockpos = source.getBlockPos().offset(direction);
-            Direction direction1 = source.getWorld().isAirBlock(blockpos.down()) ? direction : Direction.UP;
-            this.setSuccessful(((BlockItem)item).tryPlace(new DirectionalPlaceContext(source.getWorld(), blockpos, direction, stack, direction1)).isSuccessOrConsume());
+            Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+            BlockPos blockpos = source.getPos().relative(direction);
+            Direction direction1 = source.getLevel().isEmptyBlock(blockpos.below()) ? direction : Direction.UP;
+            this.setSuccess(((BlockItem)item).place(new DirectionalPlaceContext(source.getLevel(), blockpos, direction, stack, direction1)).consumesAction());
         }
 
         return stack;

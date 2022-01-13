@@ -29,9 +29,9 @@ public class ReinforcedCrateSlot extends Slot {
      * @return boolean
      */
     @Override
-    public boolean isItemValid(final ItemStack stack) {
-        boolean isCrate = (Block.getBlockFromItem(stack.getItem()) instanceof ReinforcedCrateBlock);
-        boolean isShulker = (Block.getBlockFromItem(stack.getItem()) instanceof ShulkerBoxBlock);
+    public boolean mayPlace(final ItemStack stack) {
+        boolean isCrate = (Block.byItem(stack.getItem()) instanceof ReinforcedCrateBlock);
+        boolean isShulker = (Block.byItem(stack.getItem()) instanceof ShulkerBoxBlock);
 
         return !isCrate && !isShulker;
     }

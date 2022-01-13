@@ -41,11 +41,11 @@ public class CrateTileEntity extends LockableLootTileEntity {
      * @param nbt the NBT data
      */
     @Override
-    public void read(@Nonnull final BlockState state, @Nonnull final CompoundNBT nbt) {
-        super.read(state, nbt);
-        this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+    public void load(@Nonnull final BlockState state, @Nonnull final CompoundNBT nbt) {
+        super.load(state, nbt);
+        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 
-        if(!this.checkLootAndRead(nbt)) {
+        if(!this.tryLoadLootTable(nbt)) {
             ItemStackHelper.loadAllItems(nbt, this.items);
         }
     }
@@ -57,10 +57,10 @@ public class CrateTileEntity extends LockableLootTileEntity {
      */
     @Nonnull
     @Override
-    public CompoundNBT write(@Nonnull final CompoundNBT nbt) {
-        super.write(nbt);
+    public CompoundNBT save(@Nonnull final CompoundNBT nbt) {
+        super.save(nbt);
 
-        if(!this.checkLootAndWrite(nbt)) {
+        if(!this.trySaveLootTable(nbt)) {
             ItemStackHelper.saveAllItems(nbt, this.items);
         }
 
@@ -68,11 +68,11 @@ public class CrateTileEntity extends LockableLootTileEntity {
     }
 
     /**
-     * Fetch the block's inventory size.
+     * Fetch the size of the block's inventory.
      * @return int
      */
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return this.items.size();
     }
 
@@ -102,7 +102,7 @@ public class CrateTileEntity extends LockableLootTileEntity {
     @Nonnull
     @Override
     protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent(ModBlocks.CRATE.get().getTranslationKey());
+        return new TranslationTextComponent(ModBlocks.CRATE.get().getDescriptionId());
     }
 
     /**
@@ -114,7 +114,7 @@ public class CrateTileEntity extends LockableLootTileEntity {
     @Nonnull
     @Override
     protected Container createMenu(final int id, @Nonnull final PlayerInventory playerInventory) {
-        return ChestContainer.createGeneric9X3(id, playerInventory, this);
+        return ChestContainer.threeRows(id, playerInventory, this);
     }
 
     /**
@@ -122,18 +122,19 @@ public class CrateTileEntity extends LockableLootTileEntity {
      * @param player the player
      */
     @Override
-    public void openInventory(final PlayerEntity player) {
+    public void startOpen(final PlayerEntity player) {
         if(!player.isSpectator()) {
             if(this.numPlayersUsing < 0) this.numPlayersUsing = 0;
 
             ++this.numPlayersUsing;
-            this.world.addBlockEvent(this.pos, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
+            this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
+            //this.world.addBlockEvent(this.pos, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
 
             BlockState blockstate = this.getBlockState();
-            boolean flag = blockstate.get(CrateBlock.OPEN);
+            boolean flag = blockstate.getValue(CrateBlock.OPEN);
 
             if(!flag && this.numPlayersUsing == 1) {
-                this.playSound(SoundEvents.BLOCK_BARREL_OPEN);
+                this.playSound(SoundEvents.BARREL_OPEN);
                 this.setOpenProperty(blockstate, true);
             }
         }
@@ -144,16 +145,17 @@ public class CrateTileEntity extends LockableLootTileEntity {
      * @param player the player
      */
     @Override
-    public void closeInventory(final PlayerEntity player) {
+    public void stopOpen(final PlayerEntity player) {
         if(!player.isSpectator()) {
             --this.numPlayersUsing;
-            this.world.addBlockEvent(this.pos, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
+            this.level.blockEvent(this.worldPosition, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
+            //this.world.addBlockEvent(this.pos, this.getBlockState().getBlock(), 1, this.numPlayersUsing);
 
             BlockState blockstate = this.getBlockState();
-            boolean flag = blockstate.get(CrateBlock.OPEN);
+            boolean flag = blockstate.getValue(CrateBlock.OPEN);
 
             if(flag && this.numPlayersUsing <= 0) {
-                this.playSound(SoundEvents.BLOCK_BARREL_CLOSE);
+                this.playSound(SoundEvents.BARREL_CLOSE);
                 this.setOpenProperty(blockstate, false);
             }
         }
@@ -165,7 +167,8 @@ public class CrateTileEntity extends LockableLootTileEntity {
      * @param open the prop to toggle
      */
     private void setOpenProperty(final BlockState state, final boolean open) {
-        this.world.setBlockState(this.getPos(), state.with(CrateBlock.OPEN, open), 3);
+        this.level.setBlock(this.getBlockPos(), state.setValue(CrateBlock.OPEN, open), 3);
+        //this.world.setBlockState(this.getPos(), state.with(CrateBlock.OPEN, open), 3);
     }
 
     /**
@@ -173,6 +176,7 @@ public class CrateTileEntity extends LockableLootTileEntity {
      * @param sound the sound event to play
      */
     private void playSound(final SoundEvent sound) {
-        this.world.playSound((PlayerEntity)null, this.pos, sound, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+        this.level.playSound((PlayerEntity)null, this.worldPosition, sound, SoundCategory.BLOCKS, 0.5F, this.level.random.nextFloat() * 0.1F + 0.9F);
+        //this.world.playSound((PlayerEntity)null, this.pos, sound, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
     }
 }

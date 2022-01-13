@@ -13,7 +13,7 @@ public final class ModMaterials {
     private static final ItemGroup item_group = ModItemGroups.PI_MATERIALS;
 
     // Items
-    public static final Item SALT = new Item(new Item.Properties().group(item_group));
-    public static final Item STEEL_INGOT = new Item(new Item.Properties().group(item_group));
-    public static final Item STEEL_RIVET = new Item(new Item.Properties().group(item_group));
+    public static final Item SALT = new Item(new Item.Properties().tab(item_group));
+    public static final Item STEEL_INGOT = new Item(new Item.Properties().tab(item_group));
+    public static final Item STEEL_RIVET = new Item(new Item.Properties().tab(item_group));
 }

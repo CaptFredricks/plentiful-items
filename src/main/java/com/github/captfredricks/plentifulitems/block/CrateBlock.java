@@ -43,7 +43,7 @@ public class CrateBlock extends ContainerBlock {
      */
     public CrateBlock(final Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(OPEN, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
     }
 
     /**
@@ -53,7 +53,7 @@ public class CrateBlock extends ContainerBlock {
      */
     @Nonnull
     @Override
-    public BlockRenderType getRenderType(@Nonnull final BlockState state) {
+    public BlockRenderType getRenderShape(@Nonnull final BlockState state) {
         return BlockRenderType.MODEL;
     }
 
@@ -74,7 +74,7 @@ public class CrateBlock extends ContainerBlock {
      */
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(@Nonnull final IBlockReader world) {
+    public TileEntity newBlockEntity(@Nonnull final IBlockReader world) {
         return ModTileEntityTypes.CRATE.get().create();
     }
 
@@ -87,9 +87,9 @@ public class CrateBlock extends ContainerBlock {
      * @param stack the item stack
      */
     @Override
-    public void onBlockPlacedBy(@Nonnull final World world, @Nonnull final BlockPos pos, @Nonnull final BlockState state, @Nullable final LivingEntity placer, final ItemStack stack) {
-        if(stack.hasDisplayName()) {
-            TileEntity tileentity = world.getTileEntity(pos);
+    public void setPlacedBy(@Nonnull final World world, @Nonnull final BlockPos pos, @Nonnull final BlockState state, @Nullable final LivingEntity placer, final ItemStack stack) {
+        if(stack.hasCustomHoverName()) {
+            TileEntity tileentity = world.getBlockEntity(pos);
 
             if(tileentity instanceof CrateTileEntity) {
                 ((CrateTileEntity)tileentity).setCustomName(stack.getDisplayName());
@@ -109,16 +109,16 @@ public class CrateBlock extends ContainerBlock {
      */
     @Nonnull
     @Override
-    public ActionResultType onBlockActivated(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos, @Nonnull final PlayerEntity player, @Nonnull final Hand hand, @Nonnull final BlockRayTraceResult hit) {
-        if(world.isRemote) {
+    public ActionResultType use(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos, @Nonnull final PlayerEntity player, @Nonnull final Hand hand, @Nonnull final BlockRayTraceResult hit) {
+        if(world.isClientSide) {
             return ActionResultType.SUCCESS;
         } else {
-            TileEntity tileentity = world.getTileEntity(pos);
+            TileEntity tileentity = world.getBlockEntity(pos);
 
             if(tileentity instanceof CrateTileEntity) {
-                player.openContainer((CrateTileEntity)tileentity);
-                //player.addStat(Stats.OPEN_BARREL); statistics data, not needed right now
-                PiglinTasks.func_234478_a_(player, true);
+                player.openMenu((CrateTileEntity)tileentity);
+                //player.awardStat(Stats.OPEN_BARREL); // statistics data, not needed right now
+                PiglinTasks.angerNearbyPiglins(player, true);
             }
 
             return ActionResultType.CONSUME;
@@ -134,16 +134,16 @@ public class CrateBlock extends ContainerBlock {
      * @param isMoving whether the block is moving
      */
     @Override
-    public void onReplaced(final BlockState state, @Nonnull final World world, @Nonnull final BlockPos pos, final BlockState newState, final boolean isMoving) {
-        if(!state.matchesBlock(newState.getBlock())) {
-            TileEntity tileentity = world.getTileEntity(pos);
+    public void onRemove(final BlockState state, @Nonnull final World world, @Nonnull final BlockPos pos, final BlockState newState, final boolean isMoving) {
+        if(!state.is(newState.getBlock())) {
+            TileEntity tileentity = world.getBlockEntity(pos);
 
             if(tileentity instanceof IInventory) {
-                InventoryHelper.dropInventoryItems(world, pos, (IInventory)tileentity);
-                world.updateComparatorOutputLevel(pos, this);
+                InventoryHelper.dropContents(world, pos, (IInventory)tileentity);
+                world.updateNeighbourForOutputSignal(pos, this);
             }
 
-            super.onReplaced(state, world, pos, newState, isMoving);
+            super.onRemove(state, world, pos, newState, isMoving);
         }
     }
 
@@ -153,7 +153,7 @@ public class CrateBlock extends ContainerBlock {
      * @return boolean
      */
     @Override
-    public boolean hasComparatorInputOverride(@Nonnull final BlockState state) {
+    public boolean hasAnalogOutputSignal(@Nonnull final BlockState state) {
         return true;
     }
 
@@ -165,8 +165,8 @@ public class CrateBlock extends ContainerBlock {
      * @return int
      */
     @Override
-    public int getComparatorInputOverride(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos) {
-        return Container.calcRedstone(world.getTileEntity(pos));
+    public int getAnalogOutputSignal(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos) {
+        return Container.getRedstoneSignalFromBlockEntity(world.getBlockEntity(pos));
     }
 
     /**
@@ -178,7 +178,7 @@ public class CrateBlock extends ContainerBlock {
     @Nonnull
     @Override
     public BlockState rotate(final BlockState state, final Rotation rot) {
-        return state.with(FACING, rot.rotate(state.get(FACING)));
+        return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     /**
@@ -190,7 +190,7 @@ public class CrateBlock extends ContainerBlock {
     @Nonnull
     @Override
     public BlockState mirror(final BlockState state, final Mirror mirror) {
-        return state.rotate(mirror.toRotation(state.get(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     /**
@@ -198,7 +198,7 @@ public class CrateBlock extends ContainerBlock {
      * @param builder the builder
      */
     @Override
-    protected void fillStateContainer(final StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(final StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING, OPEN);
     }
 
@@ -209,6 +209,6 @@ public class CrateBlock extends ContainerBlock {
      */
     @Override
     public BlockState getStateForPlacement(final BlockItemUseContext context) {
-        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
 }

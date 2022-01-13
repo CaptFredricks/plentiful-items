@@ -47,7 +47,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      */
     public ReinforcedCrateBlock(final Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH).with(OPEN, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
     }
 
     /**
@@ -57,7 +57,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      */
     @Nonnull
     @Override
-    public BlockRenderType getRenderType(@Nonnull final BlockState state) {
+    public BlockRenderType getRenderShape(@Nonnull final BlockState state) {
         return BlockRenderType.MODEL;
     }
 
@@ -78,7 +78,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      */
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(@Nonnull final IBlockReader world) {
+    public TileEntity newBlockEntity(@Nonnull final IBlockReader world) {
         return ModTileEntityTypes.REINFORCED_CRATE.get().create();
     }
 
@@ -91,9 +91,9 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      * @param stack the item stack
      */
     @Override
-    public void onBlockPlacedBy(@Nonnull final World world, @Nonnull final BlockPos pos, @Nonnull final BlockState state, final LivingEntity placer, final ItemStack stack) {
-        if(stack.hasDisplayName()) {
-            TileEntity tileentity = world.getTileEntity(pos);
+    public void setPlacedBy(@Nonnull final World world, @Nonnull final BlockPos pos, @Nonnull final BlockState state, final LivingEntity placer, final ItemStack stack) {
+        if(stack.hasCustomHoverName()) {
+            TileEntity tileentity = world.getBlockEntity(pos);
 
             if(tileentity instanceof ReinforcedCrateTileEntity) {
                 ((ReinforcedCrateTileEntity)tileentity).setCustomName(stack.getDisplayName());
@@ -113,18 +113,18 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      */
     @Nonnull
     @Override
-    public ActionResultType onBlockActivated(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos, @Nonnull final PlayerEntity player, @Nonnull final Hand hand, @Nonnull final BlockRayTraceResult hit) {
-        if(world.isRemote) {
+    public ActionResultType use(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos, @Nonnull final PlayerEntity player, @Nonnull final Hand hand, @Nonnull final BlockRayTraceResult hit) {
+        if(world.isClientSide) {
             return ActionResultType.SUCCESS;
         } else if(player.isSpectator()) {
             return ActionResultType.CONSUME;
         } else {
-            TileEntity tileentity = world.getTileEntity(pos);
+            TileEntity tileentity = world.getBlockEntity(pos);
 
             if(tileentity instanceof ReinforcedCrateTileEntity) {
-                player.openContainer((ReinforcedCrateTileEntity)tileentity);
-                //player.addStat(Stats.OPEN_SHULKER_BOX);
-                PiglinTasks.func_234478_a_(player, true);
+                player.openMenu((ReinforcedCrateTileEntity)tileentity);
+                //player.addStat(Stats.OPEN_SHULKER_BOX); // statistics data, not needed right now
+                PiglinTasks.angerNearbyPiglins(player, true);
 
                 return ActionResultType.CONSUME;
             } else {
@@ -142,15 +142,15 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      * @param isMoving whether the block is moving
      */
     @Override
-    public void onReplaced(final BlockState state, @Nonnull final World world, @Nonnull final BlockPos pos, final BlockState newState, final boolean isMoving) {
-        if(!state.matchesBlock(newState.getBlock())) {
-            TileEntity tileentity = world.getTileEntity(pos);
+    public void onRemove(final BlockState state, @Nonnull final World world, @Nonnull final BlockPos pos, final BlockState newState, final boolean isMoving) {
+        if(!state.is(newState.getBlock())) {
+            TileEntity tileentity = world.getBlockEntity(pos);
 
             if(tileentity instanceof ReinforcedCrateTileEntity) {
-                world.updateComparatorOutputLevel(pos, state.getBlock());
+                world.updateNeighbourForOutputSignal(pos, state.getBlock());
             }
 
-            super.onReplaced(state, world, pos, newState, isMoving);
+            super.onRemove(state, world, pos, newState, isMoving);
         }
     }
 
@@ -162,33 +162,33 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      * @param player the player
      */
     @Override
-    public void onBlockHarvested(final World world, @Nonnull final BlockPos pos, @Nonnull final BlockState state, @Nonnull final PlayerEntity player) {
-        TileEntity tileentity = world.getTileEntity(pos);
+    public void playerWillDestroy(final World world, @Nonnull final BlockPos pos, @Nonnull final BlockState state, @Nonnull final PlayerEntity player) {
+        TileEntity tileentity = world.getBlockEntity(pos);
 
         if(tileentity instanceof ReinforcedCrateTileEntity) {
             ReinforcedCrateTileEntity reinforcedcratetileentity = (ReinforcedCrateTileEntity)tileentity;
 
-            if(!world.isRemote && player.isCreative() && !reinforcedcratetileentity.isEmpty()) {
+            if(!world.isClientSide && player.isCreative() && !reinforcedcratetileentity.isEmpty()) {
                 ItemStack itemstack = this.getItem(world, pos, state);
                 CompoundNBT compoundnbt = reinforcedcratetileentity.saveToNbt(new CompoundNBT());
 
                 if(!compoundnbt.isEmpty()) {
-                    itemstack.setTagInfo("BlockEntityTag", compoundnbt);
+                    itemstack.addTagElement("BlockEntityTag", compoundnbt);
                 }
 
                 if(reinforcedcratetileentity.hasCustomName()) {
-                    itemstack.setDisplayName(reinforcedcratetileentity.getCustomName());
+                    itemstack.setHoverName(reinforcedcratetileentity.getCustomName());
                 }
 
                 ItemEntity itementity = new ItemEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, itemstack);
-                itementity.setDefaultPickupDelay();
-                world.addEntity(itementity);
+                itementity.setDefaultPickUpDelay();
+                world.addFreshEntity(itementity);
             } else {
-                reinforcedcratetileentity.fillWithLoot(player);
+                reinforcedcratetileentity.unpackLootTable(player);
             }
         }
 
-        super.onBlockHarvested(world, pos, state, player);
+        super.playerWillDestroy(world, pos, state, player);
     }
 
     /**
@@ -200,14 +200,14 @@ public class ReinforcedCrateBlock extends ContainerBlock {
     @Nonnull
     @Override
     public List<ItemStack> getDrops(@Nonnull final BlockState state, LootContext.Builder builder) {
-        TileEntity tileentity = builder.get(LootParameters.BLOCK_ENTITY);
+        TileEntity tileentity = builder.getParameter(LootParameters.BLOCK_ENTITY);
 
         if(tileentity instanceof ReinforcedCrateTileEntity) {
             ReinforcedCrateTileEntity reinforcedcratetileentity = (ReinforcedCrateTileEntity)tileentity;
 
             builder = builder.withDynamicDrop(CONTENTS, (context, stackConsumer) -> {
-                for(int i = 0; i < reinforcedcratetileentity.getSizeInventory(); ++i) {
-                    stackConsumer.accept(reinforcedcratetileentity.getStackInSlot(i));
+                for(int i = 0; i < reinforcedcratetileentity.getContainerSize(); ++i) {
+                    stackConsumer.accept(reinforcedcratetileentity.getItem(i));
                 }
             });
         }
@@ -223,14 +223,14 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      * @return ItemStack
      */
     @Nonnull
-    @Override
     public ItemStack getItem(@Nonnull final IBlockReader world, @Nonnull final BlockPos pos, @Nonnull final BlockState state) {
-        ItemStack itemstack = super.getItem(world, pos, state);
-        ReinforcedCrateTileEntity reinforcedcratetileentity = (ReinforcedCrateTileEntity)world.getTileEntity(pos);
+        ItemStack itemstack = super.getCloneItemStack(world, pos, state);
+                //.getItem(world, pos, state);
+        ReinforcedCrateTileEntity reinforcedcratetileentity = (ReinforcedCrateTileEntity)world.getBlockEntity(pos);
         CompoundNBT compoundnbt = reinforcedcratetileentity.saveToNbt(new CompoundNBT());
 
         if(!compoundnbt.isEmpty()) {
-            itemstack.setTagInfo("BlockEntityTag", compoundnbt);
+            itemstack.addTagElement("BlockEntityTag", compoundnbt);
         }
 
         return itemstack;
@@ -244,9 +244,9 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      * @param flag the tooltip flag
      */
     @Override
-    public void addInformation(@Nonnull final ItemStack stack, @Nullable final IBlockReader world, @Nonnull final List<ITextComponent> tooltip, @Nonnull final ITooltipFlag flag) {
-        super.addInformation(stack, world, tooltip, flag);
-        CompoundNBT compoundnbt = stack.getChildTag("BlockEntityTag");
+    public void appendHoverText(@Nonnull final ItemStack stack, @Nullable final IBlockReader world, @Nonnull final List<ITextComponent> tooltip, @Nonnull final ITooltipFlag flag) {
+        super.appendHoverText(stack, world, tooltip, flag);
+        CompoundNBT compoundnbt = stack.getTagElement("BlockEntityTag");
 
         if(compoundnbt != null) {
             if(compoundnbt.contains("LootTable", 8)) {
@@ -264,15 +264,15 @@ public class ReinforcedCrateBlock extends ContainerBlock {
                         ++j;
                         if(i <= 4) {
                             ++i;
-                            IFormattableTextComponent iformattabletextcomponent = itemstack.getDisplayName().deepCopy();
-                            iformattabletextcomponent.appendString(" x").appendString(String.valueOf(itemstack.getCount()));
+                            IFormattableTextComponent iformattabletextcomponent = itemstack.getDisplayName().copy();
+                            iformattabletextcomponent.append(" x").append(String.valueOf(itemstack.getCount()));
                             tooltip.add(iformattabletextcomponent);
                         }
                     }
                 }
 
                 if(j - i > 0) {
-                    tooltip.add((new TranslationTextComponent("container.shulkerBox.more", j - i)).mergeStyle(TextFormatting.ITALIC));
+                    tooltip.add((new TranslationTextComponent("container.shulkerBox.more", j - i)).withStyle(TextFormatting.ITALIC));
                 }
             }
         }
@@ -284,7 +284,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      * @return boolean
      */
     @Override
-    public boolean hasComparatorInputOverride(@Nonnull final BlockState state) {
+    public boolean hasAnalogOutputSignal(@Nonnull final BlockState state) {
         return true;
     }
 
@@ -296,8 +296,8 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      * @return int
      */
     @Override
-    public int getComparatorInputOverride(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos) {
-        return Container.calcRedstoneFromInventory((IInventory)world.getTileEntity(pos));
+    public int getAnalogOutputSignal(@Nonnull final BlockState state, final World world, @Nonnull final BlockPos pos) {
+        return Container.getRedstoneSignalFromContainer((IInventory)world.getBlockEntity(pos));
     }
 
     /**
@@ -309,7 +309,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
     @Nonnull
     @Override
     public BlockState rotate(final BlockState state, final Rotation rot) {
-        return state.with(FACING, rot.rotate(state.get(FACING)));
+        return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     /**
@@ -321,7 +321,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
     @Nonnull
     @Override
     public BlockState mirror(final BlockState state, final Mirror mirror) {
-        return state.rotate(mirror.toRotation(state.get(FACING)));
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     /**
@@ -329,7 +329,7 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      * @param builder the builder
      */
     @Override
-    protected void fillStateContainer(final StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(final StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING, OPEN);
     }
 
@@ -340,6 +340,6 @@ public class ReinforcedCrateBlock extends ContainerBlock {
      */
     @Override
     public BlockState getStateForPlacement(final BlockItemUseContext context) {
-        return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
 }

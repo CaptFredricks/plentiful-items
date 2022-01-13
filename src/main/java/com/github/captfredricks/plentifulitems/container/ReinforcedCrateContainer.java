@@ -24,9 +24,9 @@ public final class ReinforcedCrateContainer extends Container {
      */
     public ReinforcedCrateContainer(final int id, final PlayerInventory playerInventory, final IInventory inventory) {
         super(ContainerType.SHULKER_BOX, id);
-        assertInventorySize(inventory, 27);
+        checkContainerSize(inventory, 27);
         this.inventory = inventory;
-        inventory.openInventory(playerInventory.player);
+        inventory.startOpen(playerInventory.player);
 
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
@@ -52,8 +52,8 @@ public final class ReinforcedCrateContainer extends Container {
      * @return boolean
      */
     @Override
-    public boolean canInteractWith(@Nonnull final PlayerEntity player) {
-        return this.inventory.isUsableByPlayer(player);
+    public boolean stillValid(@Nonnull final PlayerEntity player) {
+        return this.inventory.stillValid(player);
     }
 
     /**
@@ -64,24 +64,24 @@ public final class ReinforcedCrateContainer extends Container {
      */
     @Nonnull
     @Override
-    public ItemStack transferStackInSlot(@Nonnull final PlayerEntity player, final int index) {
+    public ItemStack quickMoveStack(@Nonnull final PlayerEntity player, final int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if(slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
+        Slot slot = this.slots.get(index);
+        if(slot != null && slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            if(index < this.inventory.getSizeInventory()) {
-                if(!this.mergeItemStack(itemstack1, this.inventory.getSizeInventory(), this.inventorySlots.size(), true)) {
+            if(index < this.inventory.getContainerSize()) {
+                if(!this.moveItemStackTo(itemstack1, this.inventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if(!this.mergeItemStack(itemstack1, 0, this.inventory.getSizeInventory(), false)) {
+            } else if(!this.moveItemStackTo(itemstack1, 0, this.inventory.getContainerSize(), false)) {
                 return ItemStack.EMPTY;
             }
 
             if(itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
-                slot.onSlotChanged();
+                slot.setChanged();
             }
         }
 
@@ -93,8 +93,8 @@ public final class ReinforcedCrateContainer extends Container {
      * @param player the player
      */
     @Override
-    public void onContainerClosed(@Nonnull final PlayerEntity player) {
-        super.onContainerClosed(player);
-        this.inventory.closeInventory(player);
+    public void removed(@Nonnull final PlayerEntity player) {
+        super.removed(player);
+        this.inventory.stopOpen(player);
     }
 }

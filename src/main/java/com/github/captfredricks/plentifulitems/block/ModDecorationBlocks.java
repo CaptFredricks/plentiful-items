@@ -12,6 +12,6 @@ import net.minecraftforge.common.ToolType;
  */
 public final class ModDecorationBlocks {
     // Blocks
-    public static final Block CRATE = new CrateBlock(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(2.5f, 2.5f).sound(SoundType.WOOD));
-    public static final Block REINFORCED_CRATE = new ReinforcedCrateBlock(AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(4.0f, 6.0f).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE).harvestLevel(2).setRequiresTool());
+    public static final Block CRATE = new CrateBlock(AbstractBlock.Properties.of(Material.WOOD).strength(2.5f, 2.5f).sound(SoundType.WOOD));
+    public static final Block REINFORCED_CRATE = new ReinforcedCrateBlock(AbstractBlock.Properties.of(Material.METAL).strength(4.0f, 6.0f).sound(SoundType.METAL).harvestTool(ToolType.PICKAXE).harvestLevel(2).requiresCorrectToolForDrops());
 }

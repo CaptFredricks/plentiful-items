@@ -32,35 +32,43 @@ public final class ModLootTableProvider extends LootTableProvider {
         super(gen);
     }
 
-    @Override
     @Nonnull
+    @Override
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
         return ImmutableList.of(Pair.of(ModBlockLootTables::new, LootParameterSets.BLOCK));
     }
 
     @Override
     protected void validate(Map<ResourceLocation, LootTable> map, @Nonnull ValidationTracker validationtracker) {
-        map.forEach((p_218436_2_, p_218436_3_) -> LootTableManager.validateLootTable(validationtracker, p_218436_2_, p_218436_3_));
+        map.forEach((p_218436_2_, p_218436_3_) -> LootTableManager.validate(validationtracker, p_218436_2_, p_218436_3_));
     }
 
     public static class ModBlockLootTables extends BlockLootTables {
         @Override
         protected void addTables() {
             // Building blocks
-            registerLootTable(ModBlocks.HALITE.get(), (halite) ->
+            add(ModBlocks.HALITE.get(), (halite) ->
+                    createSilkTouchDispatchTable(halite, applyExplosionDecay(halite, ItemLootEntry.lootTableItem(ModItems.SALT.get())
+                            .apply(SetCount.setCount(RandomValueRange.between(3.0f, 5.0f)))
+                            .apply(ApplyBonus.addOreBonusCount(Enchantments.BLOCK_FORTUNE))))
+            );
+            /*registerLootTable(ModBlocks.HALITE.get(), (halite) ->
                     droppingWithSilkTouch(halite, withExplosionDecay(halite, ItemLootEntry.builder(ModItems.SALT.get())
                         .acceptFunction(SetCount.builder(RandomValueRange.of(3.0f, 5.0f)))
                         .acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE))))
-            );
-            registerDropSelfLootTable(ModBlocks.STEEL_BLOCK.get());
+            );*/
+            dropSelf(ModBlocks.STEEL_BLOCK.get());
+            //registerDropSelfLootTable(ModBlocks.STEEL_BLOCK.get());
 
             // Decoration blocks
-            registerLootTable(ModBlocks.CRATE.get(), droppingWithName(ModBlocks.CRATE.get()));
-            registerLootTable(ModBlocks.REINFORCED_CRATE.get(), droppingWithContents(ModBlocks.REINFORCED_CRATE.get()));
+            add(ModBlocks.CRATE.get(), createNameableBlockEntityTable(ModBlocks.CRATE.get()));
+            //registerLootTable(ModBlocks.CRATE.get(), droppingWithName(ModBlocks.CRATE.get()));
+            add(ModBlocks.REINFORCED_CRATE.get(), createShulkerBoxDrop(ModBlocks.REINFORCED_CRATE.get()));
+            //registerLootTable(ModBlocks.REINFORCED_CRATE.get(), droppingWithContents(ModBlocks.REINFORCED_CRATE.get()));
         }
 
-        @Override
         @Nonnull
+        @Override
         protected Iterable<Block> getKnownBlocks() {
             return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).collect(Collectors.toList());
         }

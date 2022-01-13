@@ -20,9 +20,10 @@ public final class OreGeneration {
      * @param event the biome loading event
      */
     public static void generateOres(final BiomeLoadingEvent event) {
+        // Overworld only
         if(!event.getCategory().equals(Biome.Category.NETHER) && !event.getCategory().equals(Biome.Category.THEEND)) {
             // Generate halite
-            generateOre(event.getGeneration(), OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, ModBlocks.HALITE.get().getDefaultState(), 13, 63, 20);
+            generateOre(event.getGeneration(), OreFeatureConfig.FillerBlockType.NATURAL_STONE, ModBlocks.HALITE.get().defaultBlockState(), 13, 63, 20);
         }
     }
 
@@ -36,6 +37,7 @@ public final class OreGeneration {
      * @param amount the number of ore veins to try to generate
      */
     private static void generateOre(final BiomeGenerationSettingsBuilder settings, final RuleTest fillerType, final BlockState state, final int size, final int maxHeight, final int amount) {
-        settings.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(fillerType, state, size)).range(maxHeight).square().count(amount));
+        settings.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.configured(new OreFeatureConfig(fillerType, state, size)).range(maxHeight).squared().count(amount));
+        //.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(fillerType, state, size)).range(maxHeight).square().count(amount));
     }
 }
