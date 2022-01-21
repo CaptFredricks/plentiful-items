@@ -160,9 +160,42 @@ public final class ModRecipeProvider extends RecipeProvider {
 
         // VANILLA ITEMS
 
+        // Bell
+        ShapedRecipeBuilder.shaped(Items.BELL)
+                .define('G', Items.GOLD_BLOCK)
+                .define('S', Items.STONE_SLAB)
+                .define('T', Items.STICK)
+                .pattern("STS")
+                .pattern("SGS")
+                .pattern("S S")
+                .unlockedBy("has_gold_block", has(Items.GOLD_BLOCK))
+                .save(consumer);
+
+        // Bone
+        ShapedRecipeBuilder.shaped(Items.BONE)
+                .define('#', Items.BONE_MEAL)
+                .pattern("  #")
+                .pattern(" # ")
+                .pattern("#  ")
+                .unlockedBy("has_bone_meal", has(Items.BONE_MEAL))
+                .save(consumer);
+
+        // Bone (from bone block)
+        ShapelessRecipeBuilder.shapeless(Items.BONE, 3)
+                .requires(Items.BONE_BLOCK)
+                .unlockedBy("has_bone_block", has(Items.BONE_BLOCK))
+                .save(consumer, vanSave("bone_from_bone_block"));
+
+        // Bone block
+        ShapelessRecipeBuilder.shapeless(Items.BONE_BLOCK)
+                .requires(Items.BONE, 3)
+                .unlockedBy("has_bone", has(Items.BONE))
+                .save(consumer, vanSave("bone_block_from_bone"));
+
         // Bottle o' Enchanting
         ShapelessRecipeBuilder.shapeless(Items.EXPERIENCE_BOTTLE)
                 .requires(Items.GHAST_TEAR, 2)
+                .requires(Items.GLOWSTONE_DUST)
                 .requires(Items.GLASS_BOTTLE)
                 .unlockedBy("has_ghast_tear", has(Items.GHAST_TEAR))
                 .save(consumer);
@@ -199,6 +232,16 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .pattern("# #")
                 .pattern("# #")
                 .unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
+                .save(consumer);
+
+        // Crying obsidian
+        ShapedRecipeBuilder.shaped(Items.CRYING_OBSIDIAN, 4)
+                .define('O', Items.OBSIDIAN)
+                .define('T', Items.GHAST_TEAR)
+                .pattern("OTO")
+                .pattern("TOT")
+                .pattern("OTO")
+                .unlockedBy("has_ghast_tear", has(Items.GHAST_TEAR))
                 .save(consumer);
 
         // Elytra
@@ -239,6 +282,15 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
                 .save(consumer);
 
+        // Ice
+        ShapedRecipeBuilder.shaped(Items.ICE)
+                .define('S', Items.SNOW)
+                .define('W', Items.WATER_BUCKET)
+                .pattern("SS")
+                .pattern("WW")
+                .unlockedBy("has_snow", has(Items.SNOW))
+                .save(consumer);
+
         // Iron horse armor
         ShapedRecipeBuilder.shaped(Items.IRON_HORSE_ARMOR)
                 .define('I', Items.IRON_INGOT)
@@ -249,6 +301,27 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
                 .save(consumer);
 
+        // Melon seeds (from melon)
+        ShapelessRecipeBuilder.shapeless(Items.MELON_SEEDS, 4)
+                .requires(Items.MELON)
+                .unlockedBy("has_melon", has(Items.MELON))
+                .save(consumer, vanSave("melon_seeds_from_melon"));
+
+        // Nether wart
+        ShapelessRecipeBuilder.shapeless(Items.NETHER_WART, 9)
+                .requires(Items.NETHER_WART_BLOCK)
+                .unlockedBy("has_nether_wart_block", has(Items.NETHER_WART_BLOCK))
+                .save(consumer);
+
+        // Nether wart block (from crimson roots)
+        ShapedRecipeBuilder.shaped(Items.NETHER_WART_BLOCK)
+                .define('#', Items.CRIMSON_ROOTS)
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_crimson_roots", has(Items.CRIMSON_ROOTS))
+                .save(consumer, vanSave("nether_wart_block_from_crimson_roots"));
+
         // Saddle
         ShapedRecipeBuilder.shaped(Items.SADDLE)
                 .define('I', Items.IRON_INGOT)
@@ -257,6 +330,12 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .pattern("L L")
                 .pattern("I I")
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(consumer);
+
+        // Snowball
+        ShapelessRecipeBuilder.shapeless(Items.SNOWBALL, 4)
+                .requires(Items.SNOW_BLOCK)
+                .unlockedBy("has_snow_block", has(Items.SNOW_BLOCK))
                 .save(consumer);
 
         // Totem of Undying
@@ -272,6 +351,25 @@ public final class ModRecipeProvider extends RecipeProvider {
                 .pattern("GFG")
                 .unlockedBy("has_dragon_breath", has(Items.DRAGON_BREATH))
                 .unlockedBy("has_nether_star", has(Items.NETHER_STAR))
+                .save(consumer);
+
+        // Trident
+        ShapedRecipeBuilder.shaped(Items.TRIDENT)
+                .define('I', Items.IRON_INGOT)
+                .define('P', Items.PRISMARINE_SHARD)
+                .pattern("  I")
+                .pattern(" P ")
+                .pattern("P  ")
+                .unlockedBy("has_prismarine_shard", has(Items.PRISMARINE_SHARD))
+                .save(consumer);
+
+        // Warped wart block
+        ShapedRecipeBuilder.shaped(Items.WARPED_WART_BLOCK)
+                .define('#', Items.WARPED_ROOTS)
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_warped_roots", has(Items.WARPED_ROOTS))
                 .save(consumer);
     }
 
@@ -322,4 +420,12 @@ public final class ModRecipeProvider extends RecipeProvider {
     private static ResourceLocation save(final String filename) {
         return new ResourceLocation(Main.MODID, filename);
     }
+
+    /**
+     * Set the save location for vanilla recipes.
+     * @since 22w03a
+     * @param filename the filename
+     * @return ResourceLocation
+     */
+    private static ResourceLocation vanSave(final String filename) { return new ResourceLocation("minecraft", filename); }
 }

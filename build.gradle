@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '22w02a'
+version = '22w03a'
 // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 group = 'com.github.captfredricks.plentifulitems'
 archivesBaseName = 'plentifulitems'
