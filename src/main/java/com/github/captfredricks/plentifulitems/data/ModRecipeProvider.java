@@ -151,11 +151,128 @@ public final class ModRecipeProvider extends RecipeProvider {
 
         // GROUP: COMBAT
 
+        // Steel
         steelSmithingRecipe(consumer, Items.IRON_SWORD, ModItems.STEEL_SWORD.get());
         steelSmithingRecipe(consumer, Items.IRON_HELMET, ModItems.STEEL_HELMET.get());
         steelSmithingRecipe(consumer, Items.IRON_CHESTPLATE, ModItems.STEEL_CHESTPLATE.get());
         steelSmithingRecipe(consumer, Items.IRON_LEGGINGS, ModItems.STEEL_LEGGINGS.get());
         steelSmithingRecipe(consumer, Items.IRON_BOOTS, ModItems.STEEL_BOOTS.get());
+
+        // VANILLA ITEMS
+
+        // Bottle o' Enchanting
+        ShapelessRecipeBuilder.shapeless(Items.EXPERIENCE_BOTTLE)
+                .requires(Items.GHAST_TEAR, 2)
+                .requires(Items.GLASS_BOTTLE)
+                .unlockedBy("has_ghast_tear", has(Items.GHAST_TEAR))
+                .save(consumer);
+
+        // Chainmail helmet
+        ShapedRecipeBuilder.shaped(Items.CHAINMAIL_HELMET)
+                .define('#', Items.IRON_NUGGET)
+                .pattern("###")
+                .pattern("# #")
+                .unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
+                .save(consumer);
+
+        // Chainmail chestplate
+        ShapedRecipeBuilder.shaped(Items.CHAINMAIL_CHESTPLATE)
+                .define('#', Items.IRON_NUGGET)
+                .pattern("# #")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
+                .save(consumer);
+
+        // Chainmail leggings
+        ShapedRecipeBuilder.shaped(Items.CHAINMAIL_LEGGINGS)
+                .define('#', Items.IRON_NUGGET)
+                .pattern("###")
+                .pattern("# #")
+                .pattern("# #")
+                .unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
+                .save(consumer);
+
+        // Chainmail boots
+        ShapedRecipeBuilder.shaped(Items.CHAINMAIL_BOOTS)
+                .define('#', Items.IRON_NUGGET)
+                .pattern("# #")
+                .pattern("# #")
+                .unlockedBy("has_iron_nugget", has(Items.IRON_NUGGET))
+                .save(consumer);
+
+        // Elytra
+        ShapedRecipeBuilder.shaped(Items.ELYTRA)
+                .define('C', Items.CHORUS_FRUIT)
+                .define('M', Items.PHANTOM_MEMBRANE)
+                .pattern("MMM")
+                .pattern("MCM")
+                .pattern("M M")
+                .unlockedBy("has_phantom_membrane", has(Items.PHANTOM_MEMBRANE))
+                .save(consumer);
+
+        // Enchanted golden apple
+        ShapelessRecipeBuilder.shapeless(Items.ENCHANTED_GOLDEN_APPLE)
+                .requires(Items.GOLDEN_APPLE)
+                .requires(Items.EXPERIENCE_BOTTLE, 2)
+                .requires(Items.NETHER_STAR)
+                .unlockedBy("has_nether_star", has(Items.NETHER_STAR))
+                .save(consumer);
+
+        // Diamond horse armor
+        ShapedRecipeBuilder.shaped(Items.DIAMOND_HORSE_ARMOR)
+                .define('D', Items.DIAMOND)
+                .define('L', Items.LEATHER)
+                .pattern("D D")
+                .pattern("DLD")
+                .pattern("D D")
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(consumer);
+
+        // Golden horse armor
+        ShapedRecipeBuilder.shaped(Items.GOLDEN_HORSE_ARMOR)
+                .define('G', Items.GOLD_INGOT)
+                .define('L', Items.LEATHER)
+                .pattern("G G")
+                .pattern("GLG")
+                .pattern("G G")
+                .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
+                .save(consumer);
+
+        // Iron horse armor
+        ShapedRecipeBuilder.shaped(Items.IRON_HORSE_ARMOR)
+                .define('I', Items.IRON_INGOT)
+                .define('L', Items.LEATHER)
+                .pattern("I I")
+                .pattern("ILI")
+                .pattern("I I")
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(consumer);
+
+        // Saddle
+        ShapedRecipeBuilder.shaped(Items.SADDLE)
+                .define('I', Items.IRON_INGOT)
+                .define('L', Items.LEATHER)
+                .pattern("LLL")
+                .pattern("L L")
+                .pattern("I I")
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(consumer);
+
+        // Totem of Undying
+        ShapedRecipeBuilder.shaped(Items.TOTEM_OF_UNDYING)
+                .define('D', Items.DRAGON_BREATH)
+                .define('E', Items.ENDER_EYE)
+                .define('F', Items.RABBIT_FOOT)
+                .define('G', Items.GOLD_INGOT)
+                .define('S', Items.NETHER_STAR)
+                .define('T', Items.GHAST_TEAR)
+                .pattern("GEG")
+                .pattern("DST")
+                .pattern("GFG")
+                .unlockedBy("has_dragon_breath", has(Items.DRAGON_BREATH))
+                .unlockedBy("has_nether_star", has(Items.NETHER_STAR))
+                .save(consumer);
     }
 
     /**

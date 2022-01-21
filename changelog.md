@@ -1,7 +1,7 @@
 # Plentiful Items Changelog
 
 *Legend: N - new file, D - deprecated file, R - renamed file, X - removed file, M - minor change*<br>
-*Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases), x.x.x.X (snapshots/patches)*
+*Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases), x.x.x.X (patches)*
 
 ## Version 1.0.2 (2022-01-12)
 
