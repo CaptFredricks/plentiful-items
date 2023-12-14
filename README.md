@@ -1,5 +1,5 @@
 # Plentiful Items
-A Minecraft mod by CaptFredricks
+A Minecraft mod by CaptFredricks. Download it on [Planet Minecraft](https://www.planetminecraft.com/mod/plentiful-items/)!
 
 ## About the mod
 **Plentiful Items** is a simple mod for Minecraft that adds various new items and blocks to the game. This is the first mod created by CaptFredricks for Minecraft.
